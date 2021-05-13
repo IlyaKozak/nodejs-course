@@ -1,6 +1,17 @@
-const getAll = async () => {
-  // TODO: mock implementation. should be replaced during task development
-  return [];
-};
+const db = require('../../db/in-memory-db');
 
-module.exports = { getAll };
+const USERS = 'USERS';
+
+const create = async (entity) => db.postEntity(USERS, entity);
+const readAll = async () => db.getAllEntities(USERS);
+const readById = async (id) => db.getEntityById(USERS, id);
+const updateById = async (id, entityToUpdate) => db.putEntity(USERS, id, entityToUpdate);
+const deleteById = async (id) => db.deleteEntity(USERS, id);
+
+module.exports = { 
+  create,
+  readAll,
+  readById,
+  updateById,
+  deleteById,
+};
