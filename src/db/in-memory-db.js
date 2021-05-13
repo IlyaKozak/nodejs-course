@@ -1,3 +1,6 @@
+const USERS = 'USERS';
+const BOARDS = 'BOARDS';
+
 const DBMS = (function createDBMS() {
   const DB = {
     USERS: [],
@@ -30,8 +33,25 @@ const DBMS = (function createDBMS() {
       if (entityIdx === -1) return undefined;
 
       DB[table].splice(entityIdx, 1);
+      DB.cleanUpTasks(table, id);
       return {};
     },
+    cleanUpTasks(table, id) {
+      if (table === USERS) {
+        DB.TASKS = DB.TASKS.map((task) => {
+          if (task.userId === id) {
+            return {
+              ...task,
+              userId: null,
+            };
+          }
+          return task;
+        });
+      }
+      if (table === BOARDS) {
+        DB.TASKS = DB.TASKS.filter((task) => task.boardId !== id);
+      }
+    }
   };
 
   return {

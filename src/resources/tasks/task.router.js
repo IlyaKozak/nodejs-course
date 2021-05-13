@@ -20,7 +20,6 @@ router.route('/').post(async (req, res) => {
     ...req.body,
     boardId,
   });
-  console.log(taskToCreate);
   const task = await tasksService.create(taskToCreate);
   res.status(201).json(task);
 });
