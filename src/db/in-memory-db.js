@@ -27,9 +27,9 @@ const DBMS = (function createDBMS() {
     },
     deleteEntity(table, id) {
       const entityIdx = DB[table].findIndex((entity) => entity.id === id);
-      if (entityIdx !== -1) {
-        DB[table].splice(entityIdx, 1);
-      }
+      if (entityIdx === -1) return undefined;
+
+      DB[table].splice(entityIdx, 1);
       return {};
     },
   };
