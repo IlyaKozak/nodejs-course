@@ -1,5 +1,6 @@
-const USERS = 'USERS';
-const BOARDS = 'BOARDS';
+const TABLE = require('../common/constants');
+
+const { USERS, BOARDS } = TABLE;
 
 const DBMS = (function createDBMS() {
   const DB = {

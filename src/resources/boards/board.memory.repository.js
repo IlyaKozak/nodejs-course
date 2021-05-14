@@ -1,6 +1,7 @@
 const db = require('../../db/in-memory-db');
+const TABLE = require('../../common/constants');
 
-const BOARDS = 'BOARDS';
+const { BOARDS } = TABLE;
 
 const create = async (entity) => db.postEntity(BOARDS, entity);
 const readAll = async () => db.getAllEntities(BOARDS);
