@@ -23,7 +23,7 @@ const DBMS = (() => {
      * @memberof DBMS
      * @instance
      * @method
-     * @param {('USERS'|'BOARDS'|'TASKS')} table - DB table name
+     * @param {string} table - DB table name
      * @returns {(Array<TUser>|Array<TBoard>|Array<TTask>)} - DB table rows
      */
     getAllEntities(table) {
@@ -34,7 +34,7 @@ const DBMS = (() => {
      * @memberof DBMS
      * @instance
      * @method
-     * @param {('USERS'|'BOARDS'|'TASKS')} table - DB table name
+     * @param {string} table - DB table name
      * @param {string} id - user.id or board.id or task.id
      * @returns {(TUser|TBoard|TTask|undefined)} - DB entity
      */
@@ -46,23 +46,24 @@ const DBMS = (() => {
      * @memberof DBMS
      * @instance
      * @method
-     * @param {('USERS'|'BOARDS'|'TASKS')} table - DB table name
+     * @param {string} table - DB table name
      * @param {(TUser|TBoard|TTask)} entity - DB entity to insert
-     * @returns {(TUser|TBoard|TTask)} - inserted DB entity
+     * @returns {(TUser|TBoard|TTask)} - Inserted DB entity
      */
     postEntity(table, entity) {
       DB[table].push(entity);
       return entity;
     },
     /**
-     * Updates DB entity and returns it
+     * Updates DB entity by id and returns it 
+     * or returns undefined if there is no such entity
      * @memberof DBMS
      * @instance
      * @method
-     * @param {('USERS'|'BOARDS'|'TASKS')} table - DB table name
+     * @param {string} table - DB table name
      * @param {string} id - user.id or board.id or task.id
      * @param {(TUser|TBoard|TTask)} entityToUpdate - Entity with updated fields
-     * @returns {(TUser|TBoard|TTask)} - Updated Entity
+     * @returns {(TUser|TBoard|TTask|undefined)} - Updated Entity or undefined
      */
     putEntity(table, id, entityToUpdate) {
       const entityIdx = DB[table].findIndex((entity) => entity.id === id);
@@ -81,7 +82,7 @@ const DBMS = (() => {
      * @memberof DBMS
      * @instance
      * @method
-     * @param {('USERS'|'BOARDS'|'TASKS')} table - DB table name
+     * @param {string} table - DB table name
      * @param {string} id - user.id or board.id or task.id
      * @returns {?Object} - null or empty object
      */
@@ -95,7 +96,7 @@ const DBMS = (() => {
     },
     /**
      * Deletes tasks for user.id or board.id
-     * @param {('USERS'|'BOARDS'|'TASKS')} table - DB table name
+     * @param {string} table - DB table name
      * @param {string} id - user.id
      * @returns {void}
      */
