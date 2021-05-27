@@ -8,7 +8,7 @@ const { TTask } = require('./task.model.js');
 const { TUser } = require('../users/user.model.js');
 
 /**
- * User Sevice
+ * Task Sevice
  * @namespace TaskService
  */
 
@@ -47,13 +47,13 @@ const readById = (id) => tasksRepo.readById(id);
  * @instance
  * @function
  * @param {string} id - Task's id
- * @param {TTask} id - Task to update
+ * @param {TTask} taskUpdate - Task to update
  * @returns {Promise<(TTask|TUser|TBoard|undefined)>} - Returns promise of updated task or undefined
  */
 const updateById = (id, taskUpdate) => tasksRepo.updateById(id, taskUpdate);
 
 /**
- * Calls TaskRepository method updateById to delete task by id
+ * Calls TaskRepository method deleteById to delete task by id
  * @memberof TaskService
  * @instance
  * @function

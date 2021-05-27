@@ -11,7 +11,7 @@ const { TTask } = require('../tasks/task.model.js');
 const { TUser } = require('../users/user.model.js');
 
 /**
- * User Memory Repository
+ * Board Memory Repository
  * @namespace BoardRepository
  */
 
@@ -39,7 +39,7 @@ const readAll = async () => db.getAllEntities(BOARDS);
  * @memberof BoardRepository
  * @instance
  * @function
- * @param {string} id - Task's id
+ * @param {string} id - Board's id
  * @returns {Promise<(TBoard|TUser|TTask|undefined)>} - Returns promise of a board or undefined
  */
 const readById = async (id) => db.getEntityById(BOARDS, id);

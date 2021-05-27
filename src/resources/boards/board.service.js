@@ -8,7 +8,7 @@ const { TTask } = require('../tasks/task.model.js');
 const { TUser } = require('../users/user.model.js');
 
 /**
- * User Sevice
+ * Board Sevice
  * @namespace BoardService
  */
 
@@ -47,13 +47,13 @@ const readById = (id) => boardsRepo.readById(id);
  * @instance
  * @function
  * @param {string} id - Board's id
- * @param {TBoard} id - Board to update
+ * @param {TBoard} boardUpdate - Board to update
  * @returns {Promise<(TBoard|TUser|TTask|undefined)>} - Returns promise of updated board or undefined
  */
 const updateById = (id, boardUpdate) => boardsRepo.updateById(id, boardUpdate);
 
 /**
- * Calls BoardRepository method updateById to delete board by id
+ * Calls BoardRepository method deleteById to delete board by id
  * @memberof BoardService
  * @instance
  * @function

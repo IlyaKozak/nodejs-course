@@ -47,7 +47,7 @@ const readById = (id) => usersRepo.readById(id);
  * @instance
  * @function
  * @param {string} id - User's id
- * @param {TUser} id - User to update
+ * @param {TUser} userUpdate - User to update
  * @returns {Promise<(TUser|TBoard|TTask|undefined)>} - Returns promise of updated user or undefined
  */
 const updateById = (id, userUpdate) => usersRepo.updateById(id, userUpdate);

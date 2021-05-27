@@ -11,7 +11,7 @@ const { TTask } = require('./task.model.js');
 const { TUser } = require('../users/user.model.js');
 
 /**
- * User Memory Repository
+ * Task Memory Repository
  * @namespace TaskRepository
  */
 
