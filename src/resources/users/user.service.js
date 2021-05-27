@@ -13,7 +13,7 @@ const { TUser } = require('./user.model.js');
  */
 
 /**
- * Calls UserRepository method create to create User
+ * Calls UserRepository method create to create user
  * @memberof UserService
  * @instance
  * @function
@@ -51,8 +51,9 @@ const readById = (id) => usersRepo.readById(id);
  * @returns {Promise<(TUser|TBoard|TTask|undefined)>} - Returns promise of updated user or undefined
  */
 const updateById = (id, userUpdate) => usersRepo.updateById(id, userUpdate);
+
 /**
- * Calls UserRepository method updateById to delete User by id
+ * Calls UserRepository method updateById to delete user by id
  * @memberof UserService
  * @instance
  * @function
