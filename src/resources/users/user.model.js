@@ -2,7 +2,7 @@ const { v4: uuid } = require('uuid');
 
 /**
  * User type
- * @typedef UserType
+ * @typedef TUser
  * @property {string} id - User's id
  * @property {string} name - User's name
  * @property {string} login - User's login
@@ -11,7 +11,7 @@ const { v4: uuid } = require('uuid');
 
 /**
  * User response type (without password)
- * @typedef UserResponseType
+ * @typedef TUserResponse
  * @property {string} id - User's id
  * @property {string} name - User's name
  * @property {string} login - User's login
@@ -55,8 +55,9 @@ class User {
 
   /**
    * Static method to return user without password.
-   * @param {UserType} user - User with all data
-   * @returns {UserResponseType} - User response (without password)
+   * @param {TUser} user - User with all data
+   * @returns {TUserResponse} - User response (without password)
+   * @static
    */
   static toResponse(user) {
     const { id, name, login } = user;

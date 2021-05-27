@@ -1,14 +1,14 @@
 const { v4: uuid } = require('uuid');
 
 // eslint-disable-next-line no-unused-vars
-const { ColumnType } = require('../columns/column.model.js');
+const { TColumn } = require('../columns/column.model.js');
 
 /**
  * Board type
- * @typedef BoardType
+ * @typedef TBoard
  * @property {string} id - Board's id
  * @property {string} title - Board's title
- * @property {Set<ColumnType>} columns - Board's columns
+ * @property {Set<TColumn>} columns - Board's columns
  */
 
 /**
@@ -20,7 +20,7 @@ class Board {
    * @param {Object} board
    * @param {string} [board.id] - Board's id
    * @param {string} [board.title] - Board's title
-   * @param {Set<ColumnType>} [board.columns] - Board's columns
+   * @param {Set<TColumn>} [board.columns] - Board's columns
    */
   constructor({
     id = uuid(),
@@ -36,7 +36,7 @@ class Board {
      */
     this.title = title;
     /**
-     * @property {Set<ColumnType>} [board.columns] - Board's columns
+     * @property {Set<TColumn>} [board.columns] - Board's columns
      */
     this.columns = columns;
   }

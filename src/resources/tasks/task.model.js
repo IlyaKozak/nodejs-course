@@ -2,7 +2,7 @@ const { v4: uuid } = require('uuid');
 
 /**
  * Task type
- * @typedef TaskType
+ * @typedef TTask
  * @property {string} id - Task's id
  * @property {string} title - Task's title
  * @property {?number} order - Task's order

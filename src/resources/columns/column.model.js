@@ -2,7 +2,7 @@ const { v4: uuid } = require('uuid');
 
 /**
  * Column type
- * @typedef ColumnType
+ * @typedef TColumn
  * @property {string} id - Column's id
  * @property {string} title - Column's title
  * @property {?number} order - Column's order
