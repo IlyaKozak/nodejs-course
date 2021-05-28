@@ -34,12 +34,11 @@ const DBMS = (() => {
 
       const entity = DB[table][entityIdx];
       if (!entity) return undefined;
-      
-      Object.keys(entity).forEach((key) => {
-        if (entityToUpdate[key] !== undefined) {
-          entity[key] = entityToUpdate[key];
-        }
-      });
+
+      DB[table][entityIdx] = {
+        ...entity,
+        ...entityToUpdate,
+      }
       return DB[table][entityIdx];
     },
     deleteEntity(table: TABLE, id: string): (Entity | undefined) {

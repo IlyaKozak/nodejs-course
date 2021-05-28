@@ -18,8 +18,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": [
     "node_modules/"
