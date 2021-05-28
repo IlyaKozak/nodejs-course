@@ -6,11 +6,13 @@ interface IBoard {
   id: string;
   title: string;
   columns: Set<IColumn>;
-};
+}
 
 class Board implements IBoard {
   id: string;
+
   title: string;
+
   columns: Set<IColumn>;
 
   constructor({

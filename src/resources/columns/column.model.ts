@@ -4,11 +4,13 @@ interface IColumn {
   id: string;
   title: string;
   order: number | null;
-};
+}
 
 class Column implements IColumn {
   id: string;
+
   title: string;
+
   order: number | null;
 
   constructor({

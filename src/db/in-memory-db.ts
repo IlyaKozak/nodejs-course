@@ -42,13 +42,14 @@ const DBMS = (() => {
       });
       return DB[table][entityIdx];
     },
-    deleteEntity(table: TABLE, id: string): ({} | null) {
+    deleteEntity(table: TABLE, id: string): (Entity | undefined) {
       const entityIdx = DB[table].findIndex((entity: Entity) => entity.id === id);
-      if (entityIdx === -1) return null;
+      if (entityIdx === -1) return;
 
+      const entity = DB[table][entityIdx];
       DB[table].splice(entityIdx, 1);
       DB.cleanUpTasks(table, id);
-      return {};
+      return entity;
     },
     cleanUpTasks(table: TABLE, id: string): void {
       if (table === USERS) {
