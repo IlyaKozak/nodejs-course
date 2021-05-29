@@ -38,12 +38,12 @@ const DBMS = (() => {
       DB[table][entityIdx] = {
         ...entity,
         ...entityToUpdate,
-      }
+      };
       return DB[table][entityIdx];
     },
     deleteEntity(table: TABLE, id: string): (Entity | undefined) {
       const entityIdx = DB[table].findIndex((entity: Entity) => entity.id === id);
-      if (entityIdx === -1) return;
+      if (entityIdx === -1) return undefined;
 
       const entity = DB[table][entityIdx];
       DB[table].splice(entityIdx, 1);
@@ -65,7 +65,7 @@ const DBMS = (() => {
       if (table === BOARDS) {
         DB.TASKS = DB.TASKS.filter((task) => task.boardId !== id);
       }
-    }
+    },
   };
 
   return {
@@ -74,7 +74,7 @@ const DBMS = (() => {
     postEntity: DB.postEntity,
     putEntity: DB.putEntity,
     deleteEntity: DB.deleteEntity,
-  }
+  };
 })();
 
 export {

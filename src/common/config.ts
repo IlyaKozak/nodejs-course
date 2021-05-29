@@ -4,10 +4,10 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
 dotenv.config({
-  path: path.join(dirname(fileURLToPath(import.meta.url)), '../../.env')
+  path: path.join(dirname(fileURLToPath(import.meta.url)), '../../.env'),
 });
 
-export const { 
+export const {
   PORT,
   NODE_ENV,
   MONGO_CONNECTION_STRING,

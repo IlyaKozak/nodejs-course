@@ -6,7 +6,6 @@ import * as usersService from './user.service';
 
 const router = express.Router();
 
-
 router.route('/').get(async (_req: Request, res: Response) => {
   const users = await usersService.readAll();
 
@@ -30,7 +29,7 @@ router.route('/').post(async (req: Request, res: Response) => {
 
 router.route('/:id').put(async (req: Request, res: Response) => {
   const { id } = req.params;
-  if (!id) return res.status(STATUS_CODE.NOT_FOUND);  
+  if (!id) return res.status(STATUS_CODE.NOT_FOUND);
 
   const userUpdate: IUser = req.body;
   const user = await usersService.updateById(id, userUpdate);

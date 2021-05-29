@@ -12,12 +12,18 @@ interface ITask {
 
 class Task implements ITask {
   id: string;
+
   title: string;
+
   order: number | null;
+
   description: string;
+
   userId: string | null;
+
   boardId: string | null;
-  columnId: string | null;  
+
+  columnId: string | null;
 
   constructor({
     id = uuid(),

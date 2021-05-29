@@ -8,7 +8,9 @@ interface IColumn {
 
 class Column implements IColumn {
   id: string;
+
   title: string;
+
   order: number | null;
 
   constructor({
