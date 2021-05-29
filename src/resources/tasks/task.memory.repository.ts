@@ -1,29 +1,27 @@
-import { DBMS as db, Entity } from '../../db/in-memory-db';
+import { DBMS as db } from '../../db/in-memory-db';
 import TABLE from '../../common/constants';
 import { ITask } from './task.model';
-import { IUser } from '../users/user.model';
-import { IBoard } from '../boards/board.model';
 
 const { TASKS } = TABLE;
 
-const create = async (entity: ITask): Promise<Entity> => {
-  return db.postEntity(TASKS, entity);
+const create = async (entity: ITask): Promise<ITask> => {
+  return db.postEntity(TASKS, entity) as ITask;
 };
 
-const readAll = async (): Promise<IUser[] | IBoard[] | ITask[]> => {
-  return db.getAllEntities(TASKS);
+const readAll = async (): Promise<ITask[]> => {
+  return db.getAllEntities(TASKS) as ITask[];
 };
 
-const readById = async (id: string): Promise<ITask | IUser | IBoard | undefined> => {
-  return db.getEntityById(TASKS, id);
+const readById = async (id: string): Promise<ITask | undefined> => {
+  return db.getEntityById(TASKS, id) as (ITask | undefined);
 };
 
-const updateById = async (id: string, entityToUpdate: ITask): Promise<ITask | IUser | IBoard | undefined> => {
-  return db.putEntity(TASKS, id, entityToUpdate);
+const updateById = async (id: string, entityToUpdate: ITask): Promise<ITask | undefined> => {
+  return db.putEntity(TASKS, id, entityToUpdate) as (ITask | undefined);
 };
 
-const deleteById = async (id: string): Promise<Entity | undefined> => {
-  return db.deleteEntity(TASKS, id);
+const deleteById = async (id: string): Promise<ITask | undefined> => {
+  return db.deleteEntity(TASKS, id) as (ITask | undefined);
 };
 
 export { 

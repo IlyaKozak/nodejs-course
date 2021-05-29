@@ -1,7 +1,8 @@
-import express, { Request, Response, NextFunction } from 'express';
-import swaggerUI from 'swagger-ui-express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+
+import express, { Request, Response, NextFunction } from 'express';
+import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 
 import userRouter from './resources/users/user.router';

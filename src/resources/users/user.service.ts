@@ -1,26 +1,23 @@
 import * as usersRepo from './user.memory.repository';
-import { Entity } from '../../db/in-memory-db';
 import { IUser } from './user.model';
-import { IBoard } from '../boards/board.model';
-import { ITask } from '../tasks/task.model';
 
-const create = (user: IUser): Promise<Entity> => {
+const create = (user: IUser): Promise<IUser> => {
   return usersRepo.create(user);
 };
 
-const readAll = (): Promise<IUser[] | IBoard[] | ITask[]> => {
+const readAll = (): Promise<IUser[]> => {
   return usersRepo.readAll();
 };
 
-const readById = (id: string): Promise<IUser | IBoard | ITask | undefined> => {
+const readById = (id: string): Promise<IUser | undefined> => {
   return usersRepo.readById(id);
 };
 
-const updateById = (id: string, userUpdate: IUser): Promise<IUser | IBoard | ITask | undefined> => {
+const updateById = (id: string, userUpdate: IUser): Promise<IUser | undefined> => {
   return usersRepo.updateById(id, userUpdate);
 };
 
-const deleteById = (id: string): Promise<Entity | undefined> => {
+const deleteById = (id: string): Promise<IUser | undefined> => {
   return usersRepo.deleteById(id);
 };
 
