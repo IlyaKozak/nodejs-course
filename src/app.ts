@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import express, { Request, Response, NextFunction } from 'express';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
-// import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 import './common/errorHandling';
 import requestLogger from './middlewares/requestLogger';
@@ -33,11 +33,13 @@ app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
 
-// app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
-//   res
-//     .status(StatusCodes.INTERNAL_SERVER_ERROR)
-//     .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
-// });
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  console.log('common error handler', err);
+  // TODO: error logging to file
+  res
+    .status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+});
 
 // Check uncaughtException
 // throw Error('Oops!');
