@@ -5,6 +5,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 
+import './common/errorHandling';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
@@ -27,5 +28,11 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
+
+// Check uncaughtException
+// throw Error('Oops!');
+
+// Check unhandledRejection
+// Promise.reject(Error('Oops!'));
 
 export default app;
