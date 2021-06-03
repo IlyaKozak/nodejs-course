@@ -4,8 +4,10 @@ import { fileURLToPath } from 'url';
 import express, { Request, Response, NextFunction } from 'express';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
+// import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 import './common/errorHandling';
+import requestLogger from './middlewares/requestLogger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
@@ -16,6 +18,8 @@ const swaggerDocument = YAML.load(path.join(dirname(fileURLToPath(import.meta.ur
 app.use(express.json());
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+app.use(requestLogger);
 
 app.use('/', (req: Request, res: Response, next: NextFunction) => {
   if (req.originalUrl === '/') {
@@ -28,6 +32,12 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
+
+// app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
+//   res
+//     .status(StatusCodes.INTERNAL_SERVER_ERROR)
+//     .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+// });
 
 // Check uncaughtException
 // throw Error('Oops!');

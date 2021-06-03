@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.route('/').get(async (_req: Request, res: Response) => {
   const users = await usersService.readAll();
-
   res.json(users.map(User.toResponse));
 });
 
