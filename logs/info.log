@@ -1,0 +1,4 @@
+[04/06/2021, 11:03:00] GET /users/c0835ef7-105e-4454-beb4-257999beb282?queryParam=value 400 37ms {"queryParam":"value"} {}
+[04/06/2021, 11:05:31] GET /users/c0835ef7-105e-4454-beb4-257999beb282?queryParam=value 400 45ms {"queryParam":"value"} {}
+[04/06/2021, 11:05:31] GET /users/c0835ef7-105e-4454-beb4-257999beb282?queryParam=value 400 2ms {"queryParam":"value"} {}
+[04/06/2021, 11:05:34] POST /users/ 201 3ms {} {"name":"LOOK AGAIN","login":"LOOK"}

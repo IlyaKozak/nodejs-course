@@ -4,22 +4,24 @@ import { fileURLToPath } from 'url';
 import express, { Request, Response, NextFunction } from 'express';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
-import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
-import './common/errorHandling';
-import requestLogger from './middlewares/requestLogger';
+import './utils/uncaughtErrorsHandling';
+import requestInfo from './middlewares/requestInfo';
+import errorsHandler from './middlewares/errorsHandler';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 
 const app = express();
-const swaggerDocument = YAML.load(path.join(dirname(fileURLToPath(import.meta.url)), '../doc/api.yaml'));
 
 app.use(express.json());
 
-app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use(requestInfo);
 
-app.use(requestLogger);
+const swaggerDocument = YAML.load(
+  path.join(dirname(fileURLToPath(import.meta.url)), '..', 'doc', 'api.yaml'),
+);
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use('/', (req: Request, res: Response, next: NextFunction) => {
   if (req.originalUrl === '/') {
@@ -33,18 +35,12 @@ app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
 
-app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.log('common error handler', err);
-  // TODO: error logging to file
-  res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
-});
+app.use(errorsHandler);
 
 // Check uncaughtException
-// throw Error('Oops!');
+// throw Error('Uncaught Exception: Oops!');
 
 // Check unhandledRejection
-// Promise.reject(Error('Oops!'));
+// Promise.reject(Error('Unhandled Rejection: Oops!'));
 
 export default app;

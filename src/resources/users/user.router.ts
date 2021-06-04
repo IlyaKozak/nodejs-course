@@ -1,9 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 
-import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import { User, IUser } from './user.model';
 import * as usersService from './user.service';
+import ValidationError from '../../utils/validationError';
 
 const router = express.Router();
 
@@ -17,18 +18,16 @@ router.route('/').get(async (_req: Request, res: Response, next: NextFunction) =
 });
 
 router.route('/:id').get(async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
-  if (!id) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .send(ReasonPhrases.BAD_REQUEST);
-  }
-
   try {
+    const { id } = req.params;
+    if (!id) {
+      throw new ValidationError();
+    }
+
     const user = await usersService.readById(id);
-    return res.json(user ? User.toResponse(user) : {});
+    res.json(user ? User.toResponse(user) : {});
   } catch (error) {
-    return next(error);
+    next(error);
   }
 });
 
@@ -44,35 +43,31 @@ router.route('/').post(async (req: Request, res: Response, next: NextFunction) =
 });
 
 router.route('/:id').put(async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
-  if (!id) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .send(ReasonPhrases.BAD_REQUEST);
-  }
-
   try {
+    const { id } = req.params;
+    if (!id) {
+      throw new ValidationError();
+    }
+
     const userUpdate: IUser = req.body;
     const user = await usersService.updateById(id, userUpdate);
-    return res.json(user ? User.toResponse(user) : user);
+    res.json(user ? User.toResponse(user) : user);
   } catch (error) {
-    return next(error);
+    next(error);
   }
 });
 
 router.route('/:id').delete(async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.params;
-  if (!id) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .send(ReasonPhrases.BAD_REQUEST);
-  }
-
   try {
+    const { id } = req.params;
+    if (!id) {
+      throw new ValidationError();
+    }
+
     const result = await usersService.deleteById(id);
-    return res.sendStatus(result ? StatusCodes.OK : StatusCodes.NOT_FOUND);
+    res.sendStatus(result ? StatusCodes.OK : StatusCodes.NOT_FOUND);
   } catch (error) {
-    return next(error);
+    next(error);
   }
 });
 
