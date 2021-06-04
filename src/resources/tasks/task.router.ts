@@ -1,10 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 
-import { StatusCodes } from 'http-status-codes';
+import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 import { Task, ITask } from './task.model';
 import * as tasksService from './task.service';
 import ValidationError from '../../utils/validationError';
+import HTTPError from '../../utils/HTTPError';
 
 const router = express.Router({ mergeParams: true });
 
@@ -25,7 +26,10 @@ router.route('/:id').get(async (req: Request, res: Response, next: NextFunction)
     }
 
     const task = await tasksService.readById(id);
-    res.status(task ? StatusCodes.OK : StatusCodes.NOT_FOUND).json(task);
+    if (!task) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
+    res.json(task);
   } catch (error) {
     next(error);
   }
@@ -56,6 +60,9 @@ router.route('/:id').put(async (req: Request, res: Response, next: NextFunction)
 
     const taskUpdate: ITask = req.body;
     const task = await tasksService.updateById(id, taskUpdate);
+    if (!task) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
     res.json(task);
   } catch (error) {
     next(error);
@@ -70,7 +77,10 @@ router.route('/:id').delete(async (req: Request, res: Response, next: NextFuncti
     }
 
     const task = await tasksService.deleteById(id);
-    res.sendStatus(task ? StatusCodes.OK : StatusCodes.NOT_FOUND);
+    if (!task) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
+    res.sendStatus(StatusCodes.OK);
   } catch (error) {
     next(error);
   }

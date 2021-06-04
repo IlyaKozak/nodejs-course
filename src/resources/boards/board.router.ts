@@ -1,10 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 
-import { StatusCodes } from 'http-status-codes';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { Board, IBoard } from './board.model';
 import * as boardsService from './board.service';
 import ValidationError from '../../utils/validationError';
+import HTTPError from '../../utils/HTTPError';
 
 const router = express.Router();
 
@@ -25,7 +26,10 @@ router.route('/:id').get(async (req: Request, res: Response, next: NextFunction)
     }
 
     const board = await boardsService.readById(id);
-    res.status(board ? StatusCodes.OK : StatusCodes.NOT_FOUND).json(board);
+    if (!board) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
+    res.json(board);
   } catch (error) {
     next(error);
   }
@@ -50,6 +54,9 @@ router.route('/:id').put(async (req: Request, res: Response, next: NextFunction)
 
     const boardUpdate: IBoard = req.body;
     const board = await boardsService.updateById(id, boardUpdate);
+    if (!board) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
     res.json(board);
   } catch (error) {
     next(error);
@@ -64,7 +71,10 @@ router.route('/:id').delete(async (req: Request, res: Response, next: NextFuncti
     }
 
     const board = await boardsService.deleteById(id);
-    res.sendStatus(board ? StatusCodes.OK : StatusCodes.NOT_FOUND);
+    if (!board) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
+    res.sendStatus(StatusCodes.OK);
   } catch (error) {
     next(error);
   }
