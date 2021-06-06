@@ -12,6 +12,7 @@ const pathToErrorLogFile = path.join(
 
 const logger = {
   error: async (errorInfo: string, shouldExit = false): Promise<void> => {
+    console.error(`ERROR: ${errorInfo}`);
     writeFile(pathToErrorLogFile, errorInfo, {
       flag: 'a',
     }, (err) => {
@@ -24,6 +25,7 @@ const logger = {
     });
   },
   info: async (requestInfo: string): Promise<void> => {
+    console.log(`INFO: ${requestInfo}`);
     writeFile(pathToInfoLogFile, requestInfo, {
       flag: 'a',
     }, (err) => {
