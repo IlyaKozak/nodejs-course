@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  postgresdb:
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+  nodejsapp:
+    volumes:
+      - ./logs:/app/logs
+      - ./src:/app/src
