@@ -4,20 +4,20 @@ services:
     build: ./postgres
     restart: always
     networks: 
-      - user-defined-net
+      - rest-api-net
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment: 
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - /postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
   nodejsapp:
     build: .
     depends_on: 
       - postgresdb
     restart: always
     networks: 
-      - user-defined-net
+      - rest-api-net
     ports: 
       - ${PORT}:${PORT}
     volumes:
@@ -25,7 +25,7 @@ services:
       - ./src:/app/src
 
 networks: 
-  user-defined-net:
+  rest-api-net:
 
 volumes:
   postgres-data:

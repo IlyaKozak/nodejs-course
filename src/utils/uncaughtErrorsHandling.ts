@@ -23,5 +23,5 @@ process.on('unhandledRejection', async (reason: Error) => {
     second: '2-digit',
   });
 
-  logger.error(`[${timeStamp}] ${reason.name}: ${reason.message}\n`);
+  logger.error(`[${timeStamp}] ${reason.name}: ${reason.message}\n`, true);
 });

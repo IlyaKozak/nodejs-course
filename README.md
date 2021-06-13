@@ -1,5 +1,26 @@
 # RS School REST service
 
+## Run app with Docker Compose
+
+* Clone Repo:
+
+```
+git clone git@github.com:IlyaKozak/nodejs-course.git
+```
+* Change directory to cloned repository:
+```
+cd nodejs-course
+```
+
+* Go to task ```task6-docker-basics``` branch:
+```
+git checkout task6-docker-basics
+```
+* Run application with docker-compose:
+```
+docker-compose up
+```
+
 ## Prerequisites
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).

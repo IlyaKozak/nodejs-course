@@ -1,5 +1,6 @@
 node_modules
 postgres
-postgres-data
+build
 Dockerfile
 .git
+.vscode
