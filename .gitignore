@@ -1,3 +1,6 @@
 node_modules
 docs
 build
+logs/*.log
+src/common/morgan.ts
+src/common/winston.ts

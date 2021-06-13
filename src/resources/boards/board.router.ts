@@ -1,45 +1,83 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { Board, IBoard } from './board.model';
 import * as boardsService from './board.service';
-import STATUS_CODE from '../../common/http-status-codes';
+import ValidationError from '../../utils/validationError';
+import HTTPError from '../../utils/HTTPError';
 
 const router = express.Router();
 
-router.route('/').get(async (_req: Request, res: Response) => {
-  const boards = await boardsService.readAll();
-  res.json(boards);
+router.route('/').get(async (_req: Request, res: Response, next: NextFunction) => {
+  try {
+    const boards = await boardsService.readAll();
+    res.json(boards);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.route('/:id').get(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  if (!id) return res.status(STATUS_CODE.NOT_FOUND);
+router.route('/:id').get(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      throw new ValidationError();
+    }
 
-  const board = await boardsService.readById(id);
-  return res.status(board ? STATUS_CODE.OK : STATUS_CODE.NOT_FOUND).json(board);
+    const board = await boardsService.readById(id);
+    if (!board) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
+    res.json(board);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.route('/').post(async (req: Request, res: Response) => {
-  const boardToCreate = new Board(req.body);
-  const board = await boardsService.create(boardToCreate);
-  res.status(STATUS_CODE.CREATED).json(board);
+router.route('/').post(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const boardToCreate = new Board(req.body);
+    const board = await boardsService.create(boardToCreate);
+    res.status(StatusCodes.CREATED).json(board);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.route('/:id').put(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  if (!id) return res.status(STATUS_CODE.NOT_FOUND);
+router.route('/:id').put(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      throw new ValidationError();
+    }
 
-  const boardUpdate: IBoard = req.body;
-  const board = await boardsService.updateById(id, boardUpdate);
-  return res.json(board);
+    const boardUpdate: IBoard = req.body;
+    const board = await boardsService.updateById(id, boardUpdate);
+    if (!board) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
+    res.json(board);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.route('/:id').delete(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  if (!id) return res.status(STATUS_CODE.NOT_FOUND);
+router.route('/:id').delete(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      throw new ValidationError();
+    }
 
-  const board = await boardsService.deleteById(id);
-  return res.sendStatus(board ? STATUS_CODE.OK : STATUS_CODE.NOT_FOUND);
+    const board = await boardsService.deleteById(id);
+    if (!board) {
+      throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
+    }
+    res.sendStatus(StatusCodes.OK);
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default router;
