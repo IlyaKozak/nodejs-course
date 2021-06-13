@@ -1,9 +1,31 @@
 version: "3.9"
 services:
   postgresdb:
+    build: ./postgres
+    restart: always
+    networks: 
+      - user-defined-net
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment: 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - ./db/data:/var/lib/postgresql/data
+      - /postgres-data:/var/lib/postgresql/data
   nodejsapp:
+    build: .
+    depends_on: 
+      - postgresdb
+    restart: always
+    networks: 
+      - user-defined-net
+    ports: 
+      - ${PORT}:${PORT}
     volumes:
       - ./logs:/app/logs
       - ./src:/app/src
+
+networks: 
+  user-defined-net:
+
+volumes:
+  postgres-data:
