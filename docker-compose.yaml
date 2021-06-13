@@ -2,6 +2,7 @@ version: "3.9"
 services:
   postgresdb:
     build: ./postgres
+    image: ilyakozak/nodejs-rs-school_postgresdb
     restart: always
     networks: 
       - rest-api-net
@@ -13,6 +14,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
   nodejsapp:
     build: .
+    image: ilyakozak/nodejs-rs-school_nodejsapp
     depends_on: 
       - postgresdb
     restart: always
@@ -26,6 +28,7 @@ services:
 
 networks: 
   rest-api-net:
+    driver: bridge
 
 volumes:
   postgres-data:

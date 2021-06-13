@@ -2,7 +2,7 @@
 
 ## Run app with Docker Compose
 
-* Clone Repo:
+* Clone repo:
 
 ```
 git clone git@github.com:IlyaKozak/nodejs-course.git
