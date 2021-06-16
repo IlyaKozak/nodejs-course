@@ -1,6 +1,4 @@
 node_modules
-postgres
-build
 Dockerfile
 .git
 .vscode
