@@ -1,4 +1,16 @@
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+
 import app from './app';
 import { PORT } from './common/config';
+import { dbConfig } from './db/ormconfig';
+import logger from './utils/logger';
 
-app.listen(PORT);
+createConnection(dbConfig).then(() => {
+  logger.info('DB connection is established');
+  app.listen(PORT, () => {
+    logger.info(`App is listing on port: ${PORT}.`);
+  });
+}).catch((error) => {
+  logger.error(`Error occured: ${error}`);
+});

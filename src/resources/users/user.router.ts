@@ -53,12 +53,16 @@ router.route('/:id').put(async (req: Request, res: Response, next: NextFunction)
       throw new ValidationError();
     }
 
-    const userUpdate: IUser = req.body;
-    const user = await usersService.updateById(id, userUpdate);
-    if (!user) {
+    const userUpdate: IUser = {
+      ...new User(req.body),
+      id,
+    };
+    const result = await usersService.updateById(id, userUpdate);
+
+    if (!result.affected) {
       throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
     }
-    res.json(User.toResponse(user));
+    res.json(User.toResponse(userUpdate));
   } catch (error) {
     next(error);
   }
@@ -72,7 +76,8 @@ router.route('/:id').delete(async (req: Request, res: Response, next: NextFuncti
     }
 
     const result = await usersService.deleteById(id);
-    if (!result) {
+
+    if (!result.affected) {
       throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
     }
     res.sendStatus(StatusCodes.OK);
