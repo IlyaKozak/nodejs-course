@@ -1,29 +1,32 @@
-import { DBMS as db } from '../../db/in-memory-db';
-import TABLE from '../../common/constants';
+import { DeleteResult, getRepository } from 'typeorm';
+
+import { Board } from '../../db/entities/Board';
 import { IBoard } from './board.model';
 
-const { BOARDS } = TABLE;
+// const create = async (entity: IBoard): Promise<IBoard> => (
+//   getRepository(Board).save(entity)
+// );
 
-const create = async (entity: IBoard): Promise<IBoard> => db.postEntity(BOARDS, entity) as IBoard;
-
-const readAll = async (): Promise<IBoard[]> => db.getAllEntities(BOARDS) as IBoard[];
+const readAll = async (): Promise<IBoard[]> => (
+  getRepository(Board).find()
+);
 
 const readById = async (id: string): Promise<IBoard | undefined> => (
-  db.getEntityById(BOARDS, id) as (IBoard | undefined)
+  getRepository(Board).findOne({ where: { id } })
 );
 
-const updateById = async (id: string, entityToUpdate: IBoard): Promise<IBoard | undefined> => (
-  db.putEntity(BOARDS, id, entityToUpdate) as (IBoard | undefined)
-);
+// const updateById = async (id: string, entityToUpdate: IBoard): Promise<UpdateResult> => (
+//   getRepository(Board).update(id, entityToUpdate)
+// );
 
-const deleteById = async (id: string): Promise<IBoard | undefined> => (
-  db.deleteEntity(BOARDS, id) as (IBoard | undefined)
+const deleteById = async (id: string): Promise<DeleteResult> => (
+  getRepository(Board).delete(id)
 );
 
 export {
-  create,
+  // create,
   readAll,
   readById,
-  updateById,
+  // updateById,
   deleteById,
 };

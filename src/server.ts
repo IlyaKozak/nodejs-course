@@ -8,6 +8,7 @@ import logger from './utils/logger';
 
 createConnection(dbConfig).then(() => {
   logger.info('DB connection is established');
+
   app.listen(PORT, () => {
     logger.info(`App is listing on port: ${PORT}.`);
   });

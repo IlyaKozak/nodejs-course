@@ -7,7 +7,9 @@ const create = async (entity: IUser): Promise<IUser> => (
   getRepository(User).save(entity)
 );
 
-const readAll = async (): Promise<IUser[]> => getRepository(User).find();
+const readAll = async (): Promise<IUser[]> => (
+  getRepository(User).find()
+);
 
 const readById = async (id: string): Promise<IUser | undefined> => (
   getRepository(User).findOne({ where: { id } })

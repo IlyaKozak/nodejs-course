@@ -8,6 +8,8 @@ import {
   POSTGRES_PASSWORD,
 } from '../common/config';
 import { User } from './entities/User';
+import { Board } from './entities/Board';
+import { Column } from './entities/Column';
 
 export const dbConfig: ConnectionOptions = {
   type: 'postgres',
@@ -20,6 +22,8 @@ export const dbConfig: ConnectionOptions = {
   logging: true,
   entities: [
     User,
+    Board,
+    Column,
   ],
   migrations: [
     'src/db/migration/**/*.ts',
