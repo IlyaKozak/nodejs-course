@@ -29,6 +29,17 @@ router.route('/:id').get(async (req: Request, res: Response, next: NextFunction)
     if (!board) {
       throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
     }
+
+    if (board.columns) {
+      res.json(board.columns.sort((columnA, columnB) => {
+        if (columnA.order && columnB.order) {
+          return columnA.order - columnB.order;
+        }
+        return 0;
+      }));
+      return;
+    }
+
     res.json(board);
   } catch (error) {
     next(error);

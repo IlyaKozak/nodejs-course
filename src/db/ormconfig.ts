@@ -1,8 +1,7 @@
 import { ConnectionOptions } from 'typeorm';
 
 import {
-  POSTGRES_HOST,
-  POSTGRES_PORT,
+  POSTGRES_ADDRESS,
   POSTGRES_DB,
   POSTGRES_USER,
   POSTGRES_PASSWORD,
@@ -16,13 +15,10 @@ import {
 
 export const dbConfig: ConnectionOptions = {
   type: 'postgres',
-  host: POSTGRES_HOST,
-  port: Number(POSTGRES_PORT),
+  host: POSTGRES_ADDRESS,
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
-  // synchronize: true,
-  // logging: true,
   entities: [
     User,
     Board,
