@@ -17,8 +17,11 @@ const readById = async (id: string): Promise<IBoard | undefined> => (
 );
 
 const updateById = async (id: string, entityToUpdate: IBoard): Promise<UpdateResult> => {
-  console.log('ENTITY TO UPDATE', entityToUpdate);
-  return getRepository(Board).update(id, entityToUpdate as Board);
+  const boardToUpdate = {
+    title: entityToUpdate.title,
+  };
+  // TODO: columns cascade update for board columns
+  return getRepository(Board).update(id, boardToUpdate as Board);
 };
 
 const deleteById = async (id: string): Promise<DeleteResult> => {
