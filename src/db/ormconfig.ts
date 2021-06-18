@@ -7,9 +7,9 @@ import {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
 } from '../common/config';
-import { User } from './entities/User';
-import { Board } from './entities/Board';
-import { Column } from './entities/Column';
+import {
+  User, Board, Column, Task,
+} from './entities';
 
 export const dbConfig: ConnectionOptions = {
   type: 'postgres',
@@ -19,11 +19,12 @@ export const dbConfig: ConnectionOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   synchronize: true,
-  logging: true,
+  // logging: true,
   entities: [
     User,
     Board,
     Column,
+    Task,
   ],
   migrations: [
     'src/db/migration/**/*.ts',

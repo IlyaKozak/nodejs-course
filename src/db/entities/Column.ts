@@ -3,7 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column as ColumnDecorator,
   BaseEntity,
+  ManyToOne,
 } from 'typeorm';
+import { Board } from '.';
 
 @Entity()
 export class Column extends BaseEntity {
@@ -15,4 +17,10 @@ export class Column extends BaseEntity {
 
   @ColumnDecorator({ nullable: true })
   order!: number;
+
+  @ManyToOne(() => Board, (board) => board.columns, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  board!: Board;
 }

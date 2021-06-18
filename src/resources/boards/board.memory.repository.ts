@@ -1,32 +1,35 @@
-import { DeleteResult, getRepository } from 'typeorm';
+import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
 
-import { Board } from '../../db/entities/Board';
+import { Board, Task } from '../../db/entities';
 import { IBoard } from './board.model';
 
-// const create = async (entity: IBoard): Promise<IBoard> => (
-//   getRepository(Board).save(entity)
-// );
+const create = async (entity: IBoard): Promise<IBoard> => {
+  const boardToSave = await getRepository(Board).create(entity as Board);
+  return getRepository(Board).save(boardToSave);
+};
 
 const readAll = async (): Promise<IBoard[]> => (
-  getRepository(Board).find()
+  getRepository(Board).find({ relations: ['columns'] })
 );
 
 const readById = async (id: string): Promise<IBoard | undefined> => (
-  getRepository(Board).findOne({ where: { id } })
+  getRepository(Board).findOne({ where: { id }, relations: ['columns'] })
 );
 
-// const updateById = async (id: string, entityToUpdate: IBoard): Promise<UpdateResult> => (
-//   getRepository(Board).update(id, entityToUpdate)
-// );
+const updateById = async (id: string, entityToUpdate: IBoard): Promise<UpdateResult> => {
+  console.log('ENTITY TO UPDATE', entityToUpdate);
+  return getRepository(Board).update(id, entityToUpdate as Board);
+};
 
-const deleteById = async (id: string): Promise<DeleteResult> => (
-  getRepository(Board).delete(id)
-);
+const deleteById = async (id: string): Promise<DeleteResult> => {
+  await getRepository(Task).delete({ boardId: id });
+  return getRepository(Board).delete(id);
+};
 
 export {
-  // create,
+  create,
   readAll,
   readById,
-  // updateById,
+  updateById,
   deleteById,
 };

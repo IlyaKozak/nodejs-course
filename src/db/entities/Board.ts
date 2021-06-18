@@ -5,7 +5,7 @@ import {
   BaseEntity,
   OneToMany,
 } from 'typeorm';
-import { Column } from './Column';
+import { Column } from '.';
 
 @Entity()
 export class Board extends BaseEntity {
@@ -15,6 +15,8 @@ export class Board extends BaseEntity {
   @ColumnDecorator()
   title!: string;
 
-  @OneToMany(() => Column, (column) => column.id)
+  @OneToMany(() => Column, (column) => column.board, {
+    cascade: true,
+  })
   columns!: Column[];
 }

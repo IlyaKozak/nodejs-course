@@ -1,6 +1,6 @@
 import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
 
-import { User } from '../../db/entities/User';
+import { User } from '../../db/entities';
 import { IUser } from './user.model';
 
 const create = async (entity: IUser): Promise<IUser> => (
@@ -19,9 +19,11 @@ const updateById = async (id: string, entityToUpdate: IUser): Promise<UpdateResu
   getRepository(User).update(id, entityToUpdate)
 );
 
-const deleteById = async (id: string): Promise<DeleteResult> => (
-  getRepository(User).delete(id)
-);
+const deleteById = async (id: string): Promise<DeleteResult> => {
+  console.log('task null');
+  // await getRepository(Task).update({ userId: id }, { userId: IsNull() });
+  return getRepository(User).delete(id);
+};
 
 export {
   create,

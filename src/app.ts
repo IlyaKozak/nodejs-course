@@ -15,7 +15,7 @@ import errorsHandler from './middlewares/errorsHandler';
 import HTTPError from './utils/HTTPError';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
-// import taskRouter from './resources/tasks/task.router';
+import taskRouter from './resources/tasks/task.router';
 
 const app: Application = express();
 
@@ -40,7 +40,7 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
-// app.use('/boards/:boardId/tasks', taskRouter);
+app.use('/boards/:boardId/tasks', taskRouter);
 app.use(() => {
   throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
 });
