@@ -6,6 +6,8 @@ services:
     restart: always
     networks: 
       - rest-api-net
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment: 
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:

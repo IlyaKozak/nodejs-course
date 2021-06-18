@@ -31,13 +31,12 @@ router.route('/:id').get(async (req: Request, res: Response, next: NextFunction)
     }
 
     if (board.columns) {
-      res.json(board.columns.sort((columnA, columnB) => {
+      board.columns.sort((columnA, columnB) => {
         if (columnA.order && columnB.order) {
           return columnA.order - columnB.order;
         }
         return 0;
-      }));
-      return;
+      });
     }
 
     res.json(board);
