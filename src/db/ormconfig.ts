@@ -10,6 +10,9 @@ import {
 import {
   User, Board, Column, Task,
 } from './entities';
+import {
+  CreateTables1624013666751,
+} from './migration/createTables';
 
 export const dbConfig: ConnectionOptions = {
   type: 'postgres',
@@ -18,7 +21,7 @@ export const dbConfig: ConnectionOptions = {
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
-  synchronize: true,
+  // synchronize: true,
   // logging: true,
   entities: [
     User,
@@ -27,7 +30,7 @@ export const dbConfig: ConnectionOptions = {
     Task,
   ],
   migrations: [
-    'src/db/migration/**/*.ts',
+    CreateTables1624013666751,
   ],
   cli: {
     entitiesDir: 'src/db/entities',
