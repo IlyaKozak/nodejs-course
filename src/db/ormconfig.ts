@@ -1,7 +1,9 @@
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import {
+  PostgresConnectionOptions,
+} from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 import {
-  // POSTGRES_ADDRESS,
+  POSTGRES_ADDRESS,
   POSTGRES_DB,
   POSTGRES_USER,
   POSTGRES_PASSWORD,
@@ -15,25 +17,12 @@ import {
 
 export const dbConfig: PostgresConnectionOptions = {
   type: 'postgres',
-  // host: POSTGRES_ADDRESS,
-  host: 'localhost',
-  port: 5432,
+  host: POSTGRES_ADDRESS,
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   synchronize: false,
   logging: false,
-  entities: [
-    User,
-    Board,
-    Column,
-    Task,
-  ],
-  migrations: [
-    CreateTables1624013666751,
-  ],
-  cli: {
-    entitiesDir: 'src/db/entities',
-    migrationsDir: 'src/db/migration',
-  },
+  entities: [User, Board, Column, Task],
+  migrations: [CreateTables1624013666751],
 };
