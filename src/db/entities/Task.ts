@@ -5,7 +5,9 @@ import {
   BaseEntity,
 } from 'typeorm';
 
-@Entity()
+import { TABLE } from '../../common/constants';
+
+@Entity(TABLE.TASKS)
 export class Task extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;

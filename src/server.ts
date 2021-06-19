@@ -8,6 +8,11 @@ import logger from './utils/logger';
 
 createConnection(dbConfig).then(async (connection) => {
   logger.info('DB connection is established');
+
+  // uncomment to undo migration
+  // await connection.undoLastMigration();
+  // logger.info('DB migrations successfully revert');
+
   await connection.runMigrations();
   logger.info('DB migrations successfully run');
 

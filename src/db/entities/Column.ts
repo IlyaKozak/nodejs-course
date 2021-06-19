@@ -5,9 +5,11 @@ import {
   BaseEntity,
   ManyToOne,
 } from 'typeorm';
-import { Board } from '.';
 
-@Entity()
+import { Board } from '.';
+import { TABLE } from '../../common/constants';
+
+@Entity(TABLE.COLUMNS)
 export class Column extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;

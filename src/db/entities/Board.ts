@@ -7,8 +7,9 @@ import {
 } from 'typeorm';
 
 import { Column } from '.';
+import { TABLE } from '../../common/constants';
 
-@Entity()
+@Entity(TABLE.BOARDS)
 export class Board extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
@@ -18,6 +19,7 @@ export class Board extends BaseEntity {
 
   @OneToMany(() => Column, (column) => column.board, {
     cascade: true,
+    eager: true,
   })
   columns!: Column[];
 }

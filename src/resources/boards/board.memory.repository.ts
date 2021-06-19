@@ -9,11 +9,11 @@ const create = async (entity: IBoard): Promise<IBoard> => {
 };
 
 const readAll = async (): Promise<IBoard[]> => (
-  getRepository(Board).find({ relations: ['columns'] })
+  getRepository(Board).find()
 );
 
 const readById = async (id: string): Promise<IBoard | undefined> => (
-  getRepository(Board).findOne({ where: { id }, relations: ['columns'] })
+  getRepository(Board).findOne({ where: { id } })
 );
 
 const updateById = async (id: string, entityToUpdate: IBoard): Promise<UpdateResult> => {

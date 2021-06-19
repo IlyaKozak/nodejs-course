@@ -1,72 +1,139 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import {
+  MigrationInterface, QueryRunner, Table, TableForeignKey,
+} from 'typeorm';
+
+import { TABLE } from '../../common/constants';
 
 export class CreateTables1624013666751 implements MigrationInterface {
   async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `CREATE TABLE "user" (
-        "id" uuid NOT NULL DEFAULT uuid_generate_v4(), 
-        "name" character varying NOT NULL, 
-        "login" character varying NOT NULL, 
-        "password" character varying NOT NULL, 
-        CONSTRAINT uniqueLogin UNIQUE ("login"), 
-        CONSTRAINT userIdPrimaryKey PRIMARY KEY ("id")
-      )`,
-    );
+    await queryRunner.createTable(new Table({
+      name: TABLE.USERS,
+      columns: [
+        {
+          name: 'id',
+          type: 'uuid',
+          isPrimary: true,
+          generationStrategy: 'uuid',
+        },
+        {
+          name: 'name',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'login',
+          type: 'varchar',
+          isNullable: false,
+          isUnique: true,
+        },
+        {
+          name: 'password',
+          type: 'varchar',
+          isNullable: false,
+        },
+      ],
+    }), true);
 
-    await queryRunner.query(
-      `CREATE TABLE "board" (
-        "id" uuid NOT NULL DEFAULT uuid_generate_v4(), 
-        "title" character varying NOT NULL, 
-        CONSTRAINT boardIdPrimaryKey PRIMARY KEY ("id")
-      )`,
-    );
+    await queryRunner.createTable(new Table({
+      name: TABLE.BOARDS,
+      columns: [
+        {
+          name: 'id',
+          type: 'uuid',
+          isPrimary: true,
+          generationStrategy: 'uuid',
+        },
+        {
+          name: 'title',
+          type: 'varchar',
+          isNullable: false,
+        },
+      ],
+    }), true);
 
-    await queryRunner.query(
-      `CREATE TABLE "column" (
-        "id" uuid NOT NULL DEFAULT uuid_generate_v4(), 
-        "title" character varying NOT NULL, 
-        "order" integer, "boardId" uuid, 
-        CONSTRAINT columnIdPrimaryKey PRIMARY KEY ("id")
-      )`,
-    );
+    await queryRunner.createTable(new Table({
+      name: TABLE.COLUMNS,
+      columns: [
+        {
+          name: 'id',
+          type: 'uuid',
+          isPrimary: true,
+          isGenerated: true,
+          generationStrategy: 'uuid',
+        },
+        {
+          name: 'title',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'order',
+          type: 'int',
+        },
+        {
+          name: 'boardId',
+          type: 'uuid',
+        },
+      ],
+    }), true);
 
-    await queryRunner.query(
-      `CREATE TABLE "task" (
-        "id" uuid NOT NULL DEFAULT uuid_generate_v4(), 
-        "title" character varying NOT NULL, 
-        "order" integer, 
-        "description" character varying NOT NULL, 
-        "userId" character varying, 
-        "boardId" character varying, 
-        "columnId" character varying, 
-        CONSTRAINT taskIdPrimaryKey PRIMARY KEY ("id")
-      )`,
-    );
+    await queryRunner.createForeignKey(TABLE.COLUMNS, new TableForeignKey({
+      columnNames: ['boardId'],
+      referencedColumnNames: ['id'],
+      referencedTableName: TABLE.BOARDS,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    }));
 
-    await queryRunner.query(
-      `ALTER TABLE "column" 
-        ADD CONSTRAINT columnForeignKey
-        FOREIGN KEY ("boardId") REFERENCES "board"("id") 
-        ON DELETE CASCADE 
-        ON UPDATE NO ACTION`,
-    );
+    await queryRunner.createTable(new Table({
+      name: TABLE.TASKS,
+      columns: [
+        {
+          name: 'id',
+          type: 'uuid',
+          isPrimary: true,
+          generationStrategy: 'uuid',
+        },
+        {
+          name: 'title',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'order',
+          type: 'int',
+        },
+        {
+          name: 'description',
+          type: 'varchar',
+          isNullable: false,
+        },
+        {
+          name: 'userId',
+          type: 'uuid',
+          isNullable: true,
+        },
+        {
+          name: 'boardId',
+          type: 'uuid',
+          isNullable: true,
+        },
+        {
+          name: 'columnId',
+          type: 'uuid',
+          isNullable: true,
+        },
+      ],
+    }), true);
   }
 
   async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      'DROP TABLE "task"',
-    );
+    await queryRunner.dropTable(TABLE.TASKS);
 
-    await queryRunner.query(
-      'DROP TABLE "column"',
-    );
+    await queryRunner.dropTable(TABLE.COLUMNS);
 
-    await queryRunner.query(
-      'DROP TABLE "board"',
-    );
+    await queryRunner.dropTable(TABLE.BOARDS);
 
-    await queryRunner.query(
-      'DROP TABLE "user"',
-    );
+    await queryRunner.dropTable(TABLE.USERS);
   }
 }

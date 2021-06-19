@@ -5,7 +5,9 @@ import {
   BaseEntity,
 } from 'typeorm';
 
-@Entity()
+import { TABLE } from '../../common/constants';
+
+@Entity(TABLE.USERS)
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
