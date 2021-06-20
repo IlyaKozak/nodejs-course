@@ -12,9 +12,9 @@ git clone git@github.com:IlyaKozak/nodejs-course.git
 cd nodejs-course
 ```
 
-* Go to task ```task6-docker-basics``` branch:
+* Go to task ```task7-postgresql-typeorm``` branch:
 ```
-git checkout task6-docker-basics
+git checkout task7-postgresql-typeorm
 ```
 * Run application with docker-compose:
 ```
