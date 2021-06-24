@@ -16,6 +16,7 @@ import HTTPError from './utils/HTTPError';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import auth from './middlewares/auth';
 
 const app: Application = express();
 
@@ -37,6 +38,8 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
   }
   next();
 });
+
+app.use('/login', auth);
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
