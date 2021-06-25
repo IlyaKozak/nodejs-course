@@ -1,7 +1,3 @@
-import { NextFunction, Request, Response } from 'express';
+import authRouter from '../resources/login/login.router';
 
-const auth = (_req: Request, _res: Response, next: NextFunction) => {
-  next();
-};
-
-export default auth;
+export default authRouter;
