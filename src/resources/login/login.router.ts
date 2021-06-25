@@ -16,7 +16,7 @@ router.route('/').post(async (req: Request, res: Response, next: NextFunction) =
       throw new HTTPError(StatusCodes.FORBIDDEN, ReasonPhrases.FORBIDDEN);
     }
 
-    res.json(token);
+    res.json({ token });
   } catch (error) {
     next(error);
   }

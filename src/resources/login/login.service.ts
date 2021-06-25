@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import { User } from '../../db/entities';
 import { JWT_SECRET_KEY } from '../../common/config';
 
-const signToken = async (login: string, password: string) => {
+const signToken = async (login: string, password: string): Promise<string | null> => {
   const user = await getRepository(User).findOne({ where: { login } });
   if (!user) {
     return null;
@@ -16,7 +16,7 @@ const signToken = async (login: string, password: string) => {
   }
 
   const { id } = user;
-  const token = jwt.sign({ userId: id, login }, JWT_SECRET_KEY!);
+  const token = jwt.sign({ userId: id, login }, JWT_SECRET_KEY as string);
   return token;
 };
 
