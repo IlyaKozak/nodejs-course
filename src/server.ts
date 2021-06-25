@@ -1,8 +1,10 @@
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+import { createConnection, getRepository } from 'typeorm';
 
 import app from './app';
 import { PORT } from './common/config';
+import { User as UserRepo } from './db/entities';
+import { User } from './resources/users/user.model';
 import { dbConfig } from './db/ormconfig';
 import logger from './utils/logger';
 
@@ -13,8 +15,22 @@ createConnection(dbConfig).then(async (connection) => {
   // await connection.undoLastMigration();
   // logger.info('DB migrations successfully revert');
 
-  await connection.runMigrations();
-  logger.info('DB migrations successfully run');
+  const migrationsResults = await connection.runMigrations();
+  if (migrationsResults[0]) {
+    logger.info('DB migrations successfully run');
+  }
+
+  // add admin user if not exists
+  if (!await getRepository(UserRepo).findOne({ login: 'admin' })) {
+    const adminUser = new User({
+      name: 'admin',
+      login: 'admin',
+      password: 'admin',
+    });
+
+    await getRepository(UserRepo).save(adminUser);
+    logger.info('Add admin user to DB.');
+  }
 
   app.listen(PORT, () => {
     logger.info(`App is listing on port: ${PORT}.`);
