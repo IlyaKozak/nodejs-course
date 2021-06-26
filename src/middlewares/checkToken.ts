@@ -4,9 +4,17 @@ import jwt from 'jsonwebtoken';
 
 import HTTPError from '../utils/HTTPError';
 import { JWT_SECRET_KEY } from '../common/config';
+import { UNAUTHORIZED_PATHS } from '../common/constants';
 
 const checkToken = (req: Request, _res: Response, next: NextFunction): void => {
   try {
+    const path = req.path.replace(/\/$/, '');
+
+    if (UNAUTHORIZED_PATHS.includes(path)) {
+      next();
+      return;
+    }
+
     const authHeader = req.header('Authorization');
 
     let token;

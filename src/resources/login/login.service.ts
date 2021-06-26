@@ -11,7 +11,8 @@ const signToken = async (login: string, password: string): Promise<string | null
     return null;
   }
 
-  if (!bcrypt.compareSync(password, user.password)) {
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
+  if (!isPasswordCorrect) {
     return null;
   }
 
