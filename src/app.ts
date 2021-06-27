@@ -1,7 +1,10 @@
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import express, { Request, Response, NextFunction } from 'express';
+import express, {
+  Application, Request, Response, NextFunction,
+} from 'express';
+import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
@@ -14,7 +17,9 @@ import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 
-const app = express();
+const app: Application = express();
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -41,11 +46,5 @@ app.use(() => {
 });
 
 app.use(errorsHandler);
-
-// Check uncaughtException
-// throw Error('Uncaught Exception: Oops!');
-
-// Check unhandledRejection
-// Promise.reject(Error('Unhandled Rejection: Oops!'));
 
 export default app;

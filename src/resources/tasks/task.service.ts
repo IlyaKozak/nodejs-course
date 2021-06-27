@@ -1,3 +1,5 @@
+import { DeleteResult, UpdateResult } from 'typeorm';
+
 import * as tasksRepo from './task.memory.repository';
 import { ITask } from './task.model';
 
@@ -7,11 +9,11 @@ const readAll = (): Promise<ITask[]> => tasksRepo.readAll();
 
 const readById = (id: string): Promise<ITask | undefined> => tasksRepo.readById(id);
 
-const updateById = (id: string, taskUpdate: ITask): Promise<ITask | undefined> => (
+const updateById = (id: string, taskUpdate: ITask): Promise<UpdateResult> => (
   tasksRepo.updateById(id, taskUpdate)
 );
 
-const deleteById = (id: string): Promise<ITask | undefined> => tasksRepo.deleteById(id);
+const deleteById = (id: string): Promise<DeleteResult> => tasksRepo.deleteById(id);
 
 export {
   create,

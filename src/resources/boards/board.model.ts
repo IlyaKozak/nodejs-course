@@ -5,7 +5,7 @@ import { IColumn } from '../columns/column.model';
 interface IBoard {
   id: string;
   title: string;
-  columns: Set<IColumn>;
+  columns: Array<IColumn>;
 }
 
 class Board implements IBoard {
@@ -13,12 +13,12 @@ class Board implements IBoard {
 
   title: string;
 
-  columns: Set<IColumn>;
+  columns: Array<IColumn>;
 
   constructor({
     id = uuid(),
     title = 'BOARD',
-    columns = new Set([]),
+    columns = [],
   } = {}) {
     this.id = id;
     this.title = title;

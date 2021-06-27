@@ -1,24 +1,28 @@
-import { DBMS as db } from '../../db/in-memory-db';
-import TABLE from '../../common/constants';
+import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
+
+import { Task, User } from '../../db/entities';
 import { IUser } from './user.model';
 
-const { USERS } = TABLE;
+const create = async (entity: IUser): Promise<IUser> => (
+  getRepository(User).save(entity)
+);
 
-const create = async (entity: IUser): Promise<IUser> => db.postEntity(USERS, entity) as IUser;
-
-const readAll = async (): Promise<IUser[]> => db.getAllEntities(USERS) as IUser[];
+const readAll = async (): Promise<IUser[]> => (
+  getRepository(User).find()
+);
 
 const readById = async (id: string): Promise<IUser | undefined> => (
-  db.getEntityById(USERS, id) as (IUser | undefined)
+  getRepository(User).findOne({ where: { id } })
 );
 
-const updateById = async (id: string, entityToUpdate: IUser): Promise<IUser | undefined> => (
-  db.putEntity(USERS, id, entityToUpdate) as (IUser | undefined)
+const updateById = async (id: string, entityToUpdate: IUser): Promise<UpdateResult> => (
+  getRepository(User).update(id, entityToUpdate)
 );
 
-const deleteById = async (id: string): Promise<IUser | undefined> => (
-  db.deleteEntity(USERS, id) as (IUser | undefined)
-);
+const deleteById = async (id: string): Promise<DeleteResult> => {
+  await getRepository(Task).update({ userId: id }, { userId: undefined });
+  return getRepository(User).delete(id);
+};
 
 export {
   create,

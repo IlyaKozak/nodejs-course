@@ -1,7 +1,6 @@
-enum Table {
-  USERS = 'USERS',
-  BOARDS = 'BOARDS',
-  TASKS = 'TASKS',
+export enum TABLE {
+  USERS = 'users',
+  BOARDS = 'boards',
+  COLUMNS = 'columns',
+  TASKS = 'tasks',
 }
-
-export default Table;

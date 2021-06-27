@@ -21,13 +21,19 @@ const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunct
 
     res
       .status(err.status)
-      .json({ message: err.text });
+      .json({
+        status: err.status,
+        message: err.text,
+      });
   } else {
     logger.error(`[${timeStamp}] ${err.name}: ${err.message}\n`);
 
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: ReasonPhrases.INTERNAL_SERVER_ERROR });
+      .json({
+        status: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        message: err.message,
+      });
   }
 };
 

@@ -29,6 +29,16 @@ router.route('/:id').get(async (req: Request, res: Response, next: NextFunction)
     if (!board) {
       throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
     }
+
+    if (board.columns) {
+      board.columns.sort((columnA, columnB) => {
+        if (columnA.order && columnB.order) {
+          return columnA.order - columnB.order;
+        }
+        return 0;
+      });
+    }
+
     res.json(board);
   } catch (error) {
     next(error);
@@ -54,6 +64,7 @@ router.route('/:id').put(async (req: Request, res: Response, next: NextFunction)
 
     const boardUpdate: IBoard = req.body;
     const board = await boardsService.updateById(id, boardUpdate);
+
     if (!board) {
       throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
     }
@@ -70,8 +81,8 @@ router.route('/:id').delete(async (req: Request, res: Response, next: NextFuncti
       throw new ValidationError();
     }
 
-    const board = await boardsService.deleteById(id);
-    if (!board) {
+    const result = await boardsService.deleteById(id);
+    if (!result.affected) {
       throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
     }
     res.sendStatus(StatusCodes.OK);

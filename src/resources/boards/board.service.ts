@@ -1,3 +1,5 @@
+import { DeleteResult, UpdateResult } from 'typeorm';
+
 import * as boardsRepo from './board.memory.repository';
 import { IBoard } from './board.model';
 
@@ -7,11 +9,11 @@ const readAll = (): Promise<IBoard[]> => boardsRepo.readAll();
 
 const readById = (id: string): Promise<IBoard | undefined> => boardsRepo.readById(id);
 
-const updateById = (id: string, boardUpdate: IBoard): Promise<IBoard | undefined> => (
+const updateById = (id: string, boardUpdate: IBoard): Promise<UpdateResult> => (
   boardsRepo.updateById(id, boardUpdate)
 );
 
-const deleteById = (id: string): Promise<IBoard | undefined> => boardsRepo.deleteById(id);
+const deleteById = (id: string): Promise<DeleteResult> => boardsRepo.deleteById(id);
 
 export {
   create,
