@@ -19,7 +19,7 @@ const checkToken = (req: Request, _res: Response, next: NextFunction): void => {
 
     let token;
     if (authHeader && /^Bearer .*$/.test(authHeader)) {
-      [,token] = authHeader.split(' ');
+      [, token] = authHeader.split(' ');
     }
 
     if (token && jwt.verify(token, JWT_SECRET_KEY as string)) {

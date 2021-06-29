@@ -1,5 +1,4 @@
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 
 import express, { Application } from 'express';
 import cors from 'cors';
@@ -11,10 +10,10 @@ import './utils/uncaughtErrorsHandling';
 import requestInfo from './middlewares/requestInfo';
 import errorsHandler from './middlewares/errorsHandler';
 import HTTPError from './utils/HTTPError';
-import homeRouter from './resources/home/home.router';
-import userRouter from './resources/users/user.router';
-import boardRouter from './resources/boards/board.router';
-import taskRouter from './resources/tasks/task.router';
+import homeRouter from './modules/home/home.router';
+import userRouter from './modules/users/user.router';
+import boardRouter from './modules/boards/board.router';
+import taskRouter from './modules/tasks/task.router';
 import auth from './middlewares/auth';
 import checkToken from './middlewares/checkToken';
 
@@ -26,7 +25,7 @@ app.use(requestInfo);
 app.use(checkToken);
 
 const swaggerDocument = YAML.load(
-  path.join(dirname(fileURLToPath(import.meta.url)), '..', 'doc', 'api.yaml'),
+  path.join(__dirname, '..', 'doc', 'api.yaml'),
 );
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/', homeRouter);

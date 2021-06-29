@@ -41,8 +41,4 @@ class User implements IUser {
   }
 }
 
-export {
-  User,
-  IUser,
-  IUserResponse,
-};
+export { User, IUser, IUserResponse };

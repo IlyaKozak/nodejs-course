@@ -16,16 +16,14 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint/eslint-plugin"
   ],
   "settings": {
     "noInlineConfig": true
   },
   "extends": [
-    "eslint:recommended",
-    "airbnb-typescript/base",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "import/extensions": "off",

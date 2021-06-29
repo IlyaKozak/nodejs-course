@@ -15,18 +15,11 @@ class Board implements IBoard {
 
   columns: Array<IColumn>;
 
-  constructor({
-    id = uuid(),
-    title = 'BOARD',
-    columns = [],
-  } = {}) {
+  constructor({ id = uuid(), title = 'BOARD', columns = [] } = {}) {
     this.id = id;
     this.title = title;
     this.columns = columns;
   }
 }
 
-export {
-  Board,
-  IBoard,
-};
+export { Board, IBoard };

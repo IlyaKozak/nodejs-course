@@ -8,15 +8,15 @@ const create = async (entity: IBoard): Promise<IBoard> => {
   return getRepository(Board).save(boardToSave);
 };
 
-const readAll = async (): Promise<IBoard[]> => (
-  getRepository(Board).find()
-);
+const readAll = async (): Promise<IBoard[]> => getRepository(Board).find();
 
-const readById = async (id: string): Promise<IBoard | undefined> => (
-  getRepository(Board).findOne({ where: { id } })
-);
+const readById = async (id: string): Promise<IBoard | undefined> =>
+  getRepository(Board).findOne({ where: { id } });
 
-const updateById = async (id: string, entityToUpdate: IBoard): Promise<UpdateResult> => {
+const updateById = async (
+  id: string,
+  entityToUpdate: IBoard,
+): Promise<UpdateResult> => {
   const boardToUpdate = {
     title: entityToUpdate.title,
   };
@@ -29,10 +29,4 @@ const deleteById = async (id: string): Promise<DeleteResult> => {
   return getRepository(Board).delete(id);
 };
 
-export {
-  create,
-  readAll,
-  readById,
-  updateById,
-  deleteById,
-};
+export { create, readAll, readById, updateById, deleteById };

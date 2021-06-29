@@ -13,18 +13,11 @@ class Column implements IColumn {
 
   order: number | null;
 
-  constructor({
-    id = uuid(),
-    title = 'COLUMN',
-    order = null,
-  } = {}) {
+  constructor({ id = uuid(), title = 'COLUMN', order = null } = {}) {
     this.id = id;
     this.title = title;
     this.order = order;
   }
 }
 
-export {
-  Column,
-  IColumn,
-};
+export { Column, IColumn };

@@ -5,9 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import logger from '../utils/logger';
 
 const requestInfo = (req: Request, res: Response, next: NextFunction): void => {
-  const {
-    method, url, body, query,
-  } = req;
+  const { method, url, body, query } = req;
   const start = Date.now();
 
   next();
@@ -25,8 +23,10 @@ const requestInfo = (req: Request, res: Response, next: NextFunction): void => {
       second: '2-digit',
     });
 
-    logger.info(`[${timeStamp}] ${method} ${url} ${statusCode} ${ms}ms `
-      + `${JSON.stringify(query)} ${JSON.stringify(body || {})}\n`);
+    logger.info(
+      `[${timeStamp}] ${method} ${url} ${statusCode} ${ms}ms ` +
+        `${JSON.stringify(query)} ${JSON.stringify(body || {})}\n`,
+    );
   });
 };
 

@@ -1,3 +1,3 @@
-import authRouter from '../resources/login/login.router';
+import authRouter from '../modules/login/login.router';
 
 export default authRouter;

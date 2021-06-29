@@ -44,7 +44,4 @@ class Task implements ITask {
   }
 }
 
-export {
-  Task,
-  ITask,
-};
+export { Task, ITask };

@@ -20,7 +20,4 @@ const UNAUTHORIZED_PATHS = [
   '/login',
 ];
 
-export {
-  TABLE,
-  UNAUTHORIZED_PATHS,
-};
+export { TABLE, UNAUTHORIZED_PATHS };
