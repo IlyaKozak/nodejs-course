@@ -10,7 +10,7 @@ import './utils/uncaughtErrorsHandling';
 import requestInfo from './middlewares/requestInfo';
 import errorsHandler from './middlewares/errorsHandler';
 import HTTPError from './utils/HTTPError';
-import homeRouter from './modules/home/home.router';
+// import homeRouter from './modules/home/home.controller';
 import userRouter from './modules/users/user.router';
 import boardRouter from './modules/boards/board.router';
 import taskRouter from './modules/tasks/task.router';
@@ -28,7 +28,7 @@ const swaggerDocument = YAML.load(
   path.join(__dirname, '..', 'doc', 'api.yaml'),
 );
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-app.use('/', homeRouter);
+// app.use('/', homeRouter);
 app.use('/login', auth);
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
