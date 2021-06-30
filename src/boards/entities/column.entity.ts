@@ -6,7 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { Board } from '.';
+import { Board } from './board.entity';
 import { TABLE } from '../../common/constants';
 
 @Entity(TABLE.COLUMNS)

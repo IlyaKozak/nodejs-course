@@ -1,6 +1,6 @@
 import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
 
-import { Task } from '../../tasks/entities/task.entity';
+import { Task } from '../../../src/tasks/entities/task.entity';
 import { ITask } from './task.model';
 
 const create = async (entity: ITask): Promise<ITask> =>

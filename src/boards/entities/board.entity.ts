@@ -6,7 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Column } from '.';
+import { Column } from './column.entity';
 import { TABLE } from '../../common/constants';
 
 @Entity(TABLE.BOARDS)

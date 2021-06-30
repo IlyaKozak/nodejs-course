@@ -1,14 +1,9 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
-import {
-  // POSTGRES_DOCKER_SERVICE,
-  POSTGRES_DB,
-  // POSTGRES_USER,
-  // POSTGRES_PASSWORD,
-} from '../common/config';
 import { User } from '../users/entities/user.entity';
 import { Task } from '../tasks/entities/task.entity';
-import { Board, Column } from './entities';
+import { Board } from '../boards/entities/board.entity';
+import { Column } from '../boards/entities/column.entity';
 import { CreateTables1624013666751 } from './migrations/createTables';
 import { InsertAdmin1624196113786 } from './migrations/insertAdmin';
 
@@ -21,7 +16,7 @@ export const ormconfig: PostgresConnectionOptions = {
   username: 'nodejs',
   password: 'nodejs',
   // password: POSTGRES_PASSWORD,
-  database: POSTGRES_DB,
+  database: 'postgres',
   synchronize: false,
   logging: true,
   entities: [User, Board, Column, Task],

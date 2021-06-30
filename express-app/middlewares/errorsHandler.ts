@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
-import logger from '../utils/logger';
-import ValidationError from '../utils/validationError';
-import HTTPError from '../utils/HTTPError';
+import logger from '../../src/utils/logger';
+import ValidationError from '../../src/utils/validationError';
+import HTTPError from '../../src/utils/HTTPError';
 
 const errorHandler = (
   err: Error,

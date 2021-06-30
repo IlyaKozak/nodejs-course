@@ -6,6 +6,7 @@ import ormconfig from './db/ormconfig';
 import { HomeModule } from './home/home.module';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';
+import { BoardsModule } from './boards/boards.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TasksModule } from './tasks/tasks.module';
     HomeModule,
     UsersModule,
     TasksModule,
+    BoardsModule,
   ],
   controllers: [],
 })

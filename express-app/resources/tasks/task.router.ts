@@ -4,8 +4,8 @@ import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 import { Task, ITask } from './task.model';
 import * as tasksService from './task.service';
-import ValidationError from '../../utils/validationError';
-import HTTPError from '../../utils/HTTPError';
+import ValidationError from '../../../src/utils/validationError';
+import HTTPError from '../../../src/utils/HTTPError';
 
 const router = express.Router({ mergeParams: true });
 

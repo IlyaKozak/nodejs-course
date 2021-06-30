@@ -2,7 +2,7 @@ import { finished } from 'stream';
 
 import { Request, Response, NextFunction } from 'express';
 
-import logger from '../utils/logger';
+import logger from '../../src/utils/logger';
 
 const requestInfo = (req: Request, res: Response, next: NextFunction): void => {
   const { method, url, body, query } = req;
