@@ -3,12 +3,12 @@ import { createConnection, getRepository } from 'typeorm';
 
 // import app from './app';
 // import { PORT } from './common/config';
-import { User as UserRepo } from './db/entities';
+import { User as UserRepo } from './users/entities/user.entity';
 import { User } from './modules/users/user.model';
-import { dbConfig } from './db/ormconfig';
+// import { dbConfig } from './db/ormconfig';
 import logger from './utils/logger';
 
-createConnection(dbConfig)
+createConnection()
   .then(async (connection) => {
     logger.info('DB connection is established');
 

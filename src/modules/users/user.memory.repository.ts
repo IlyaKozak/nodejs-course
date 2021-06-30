@@ -1,6 +1,7 @@
 import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
 
-import { Task, User } from '../../db/entities';
+import { User } from 'src/users/entities/user.entity';
+import { Task } from '../../db/entities';
 import { IUser } from './user.model';
 
 const create = async (entity: IUser): Promise<IUser> =>

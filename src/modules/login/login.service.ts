@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-import { User } from '../../db/entities';
+import { User } from '../../users/entities/user.entity';
 import { JWT_SECRET_KEY } from '../../common/config';
 
 const signToken = async (

@@ -9,7 +9,6 @@
   "scripts": {
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
-    "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm src/server.ts",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -49,8 +48,11 @@
   },
   "dependencies": {
     "@nestjs/common": "^7.6.18",
+    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.18",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^7.6.18",
+    "@nestjs/typeorm": "^7.1.5",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "7.0.3",
