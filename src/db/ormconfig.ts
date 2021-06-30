@@ -7,7 +7,8 @@ import {
   // POSTGRES_PASSWORD,
 } from '../common/config';
 import { User } from '../users/entities/user.entity';
-import { Board, Column, Task } from './entities';
+import { Task } from '../tasks/entities/task.entity';
+import { Board, Column } from './entities';
 import { CreateTables1624013666751 } from './migrations/createTables';
 import { InsertAdmin1624196113786 } from './migrations/insertAdmin';
 

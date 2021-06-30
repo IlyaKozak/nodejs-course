@@ -1,6 +1,6 @@
 import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
 
-import { Board, Task } from '../../db/entities';
+import { Board } from '../../db/entities';
 import { IBoard } from './board.model';
 
 const create = async (entity: IBoard): Promise<IBoard> => {
@@ -25,7 +25,7 @@ const updateById = async (
 };
 
 const deleteById = async (id: string): Promise<DeleteResult> => {
-  await getRepository(Task).delete({ boardId: id });
+  // await getRepository(Task).delete({ boardId: id });
   return getRepository(Board).delete(id);
 };
 

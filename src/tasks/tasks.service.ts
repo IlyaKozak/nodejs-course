@@ -1,28 +1,28 @@
 import { Injectable } from '@nestjs/common';
+
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import * as tasksRepo from './task.memory.repository';
 
 @Injectable()
 export class TasksService {
   create(createTaskDto: CreateTaskDto) {
-    console.log(createTaskDto);
-    return 'This action adds a new task';
+    return tasksRepo.create(createTaskDto);
   }
 
   findAll() {
-    return `This action returns all tasks`;
+    return tasksRepo.readAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  findOne(id: string) {
+    return tasksRepo.readById(id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    console.log(updateTaskDto);
-    return `This action updates a #${id} task`;
+  update(id: string, updateTaskDto: UpdateTaskDto) {
+    return tasksRepo.updateById(id, updateTaskDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(id: string) {
+    return tasksRepo.deleteById(id);
   }
 }

@@ -2,6 +2,7 @@ import { DeleteResult, getRepository } from 'typeorm';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Task as TaskEntity } from '../tasks/entities/task.entity';
 import { User as UserEntity } from './entities/user.entity';
 import { User } from './user.model';
 
@@ -32,7 +33,7 @@ const updateById = async (
 };
 
 const deleteById = async (id: string): Promise<DeleteResult> => {
-  // await getRepository(Task).update({ userId: id }, { userId: undefined });
+  await getRepository(TaskEntity).update({ userId: id }, { userId: undefined });
   return getRepository(UserEntity).delete(id);
 };
 
