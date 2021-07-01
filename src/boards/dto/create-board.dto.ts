@@ -1,7 +1,7 @@
-import { IColumn } from '../models/column.model';
+import { Column } from '../entities/column.entity';
 
 export class CreateBoardDto {
   id!: string;
   title!: string;
-  columns!: Array<IColumn>;
+  columns!: Array<Column>;
 }
