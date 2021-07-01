@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -16,7 +17,12 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
+  create(
+    @Param('boardId') boardId: string,
+    @Body() createTaskDto: CreateTaskDto,
+  ) {
+    createTaskDto.boardId = boardId;
+
     return this.tasksService.create(createTaskDto);
   }
 
@@ -36,7 +42,7 @@ export class TasksController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tasksService.remove(id);
+  remove(@Param('boardId') boardId: string, @Param('id') id: string) {
+    return this.tasksService.remove(boardId, id);
   }
 }

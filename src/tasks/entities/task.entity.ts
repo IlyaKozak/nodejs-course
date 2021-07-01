@@ -10,16 +10,16 @@ export class Task extends BaseEntity {
   @Column()
   title!: string;
 
-  @Column({ nullable: true })
+  @Column({ default: null })
   order!: number;
 
   @Column()
   description!: string;
 
-  @Column({ nullable: true })
+  @Column({ default: null })
   userId!: string;
 
-  @Column({ nullable: true })
+  @Column({ default: null })
   boardId!: string;
 
   @Column({ nullable: true })

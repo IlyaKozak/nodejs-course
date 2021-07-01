@@ -1,7 +1,5 @@
-import { Column } from '../entities/column.entity';
-
 export class CreateBoardDto {
   id!: string;
   title!: string;
-  columns!: Array<Column>;
+  columns!: Array<{ title: string; order: number }>;
 }

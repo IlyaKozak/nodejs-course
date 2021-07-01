@@ -3,13 +3,13 @@ export class CreateTaskDto {
 
   title!: string;
 
-  order!: number | null;
+  order?: number;
 
   description!: string;
 
-  userId!: string | null;
+  userId?: string;
 
-  boardId!: string | null;
+  boardId?: string;
 
-  columnId!: string | null;
+  columnId?: string;
 }

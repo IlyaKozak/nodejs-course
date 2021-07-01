@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 import { TABLE } from '../../common/constants';
 
@@ -59,50 +54,14 @@ export class CreateTables1624013666751 implements MigrationInterface {
             type: 'varchar',
             isNullable: false,
           },
-        ],
-      }),
-      true,
-    );
-
-    await queryRunner.createTable(
-      new Table({
-        name: TABLE.COLUMNS,
-        columns: [
           {
-            name: 'id',
-            type: 'uuid',
-            isPrimary: true,
-            generationStrategy: 'uuid',
-            isUnique: true,
-            default: 'uuid_generate_v4()',
-          },
-          {
-            name: 'title',
-            type: 'varchar',
+            name: 'columns',
+            type: 'json',
             isNullable: false,
           },
-          {
-            name: 'order',
-            type: 'int',
-          },
-          {
-            name: 'boardId',
-            type: 'uuid',
-          },
         ],
       }),
       true,
-    );
-
-    await queryRunner.createForeignKey(
-      TABLE.COLUMNS,
-      new TableForeignKey({
-        columnNames: ['boardId'],
-        referencedColumnNames: ['id'],
-        referencedTableName: TABLE.BOARDS,
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      }),
     );
 
     await queryRunner.createTable(
@@ -125,6 +84,8 @@ export class CreateTables1624013666751 implements MigrationInterface {
           {
             name: 'order',
             type: 'int',
+            isNullable: true,
+            default: null,
           },
           {
             name: 'description',
@@ -135,16 +96,19 @@ export class CreateTables1624013666751 implements MigrationInterface {
             name: 'userId',
             type: 'uuid',
             isNullable: true,
+            default: null,
           },
           {
             name: 'boardId',
             type: 'uuid',
             isNullable: true,
+            default: null,
           },
           {
             name: 'columnId',
             type: 'uuid',
             isNullable: true,
+            default: null,
           },
         ],
       }),
@@ -154,8 +118,6 @@ export class CreateTables1624013666751 implements MigrationInterface {
 
   async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable(TABLE.TASKS);
-
-    await queryRunner.dropTable(TABLE.COLUMNS);
 
     await queryRunner.dropTable(TABLE.BOARDS);
 

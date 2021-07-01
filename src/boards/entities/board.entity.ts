@@ -1,25 +1,13 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column as ColumnDecorator,
-  BaseEntity,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Column } from './column.entity';
-import { TABLE } from '../../common/constants';
-
-@Entity(TABLE.BOARDS)
-export class Board extends BaseEntity {
+@Entity({ name: 'boards' })
+export class Board {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ColumnDecorator()
+  @Column()
   title!: string;
 
-  @OneToMany(() => Column, (column) => column.board, {
-    cascade: true,
-    eager: true,
-  })
-  columns!: Column[];
+  @Column({ type: 'json', array: false })
+  columns!: Array<{ title: string; order: number }>;
 }
