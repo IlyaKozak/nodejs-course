@@ -17,7 +17,7 @@ export const ormconfig: PostgresConnectionOptions = {
   // password: POSTGRES_PASSWORD,
   database: 'postgres',
   synchronize: false,
-  logging: true,
+  logging: false,
   entities: [User, Board, Task],
   migrations: [CreateTables1624013666751, InsertAdmin1624196113786],
   migrationsRun: true,

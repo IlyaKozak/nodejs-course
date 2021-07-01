@@ -33,7 +33,7 @@ export class UsersService {
     }
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     return this.usersRepo.update(id, updateUserDto);
   }
 
