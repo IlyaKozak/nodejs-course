@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
-import { TABLE } from '../../common/constants';
+import { TABLE } from '../../../common/constants';
 
 @Entity(TABLE.TASKS)
 export class Task extends BaseEntity {

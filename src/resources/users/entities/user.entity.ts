@@ -8,7 +8,7 @@ import {
 import { hash } from 'bcryptjs';
 import { Exclude } from 'class-transformer';
 
-import { DEFAULT_SALT_LENGTH, TABLE } from '../../common/constants';
+import { DEFAULT_SALT_LENGTH, TABLE } from '../../../common/constants';
 
 @Entity(TABLE.USERS)
 export class User extends BaseEntity {
@@ -24,7 +24,7 @@ export class User extends BaseEntity {
   login!: string;
 
   @Exclude()
-  @Column({ select: false })
+  @Column()
   password!: string;
 
   @BeforeInsert()

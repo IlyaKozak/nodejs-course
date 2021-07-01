@@ -38,15 +38,7 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    const userToRemove = await this.findOne(id);
-
-    if (!userToRemove) {
-      return {
-        message: 'No such user',
-      };
-    }
-
     await this.tasksRepo.update({ userId: id }, { userId: undefined });
-    return this.usersRepo.remove(userToRemove);
+    return this.usersRepo.delete(id);
   }
 }

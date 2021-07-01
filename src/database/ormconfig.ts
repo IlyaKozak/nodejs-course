@@ -1,8 +1,8 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
-import { User } from '../users/entities/user.entity';
-import { Task } from '../tasks/entities/task.entity';
-import { Board } from '../boards/entities/board.entity';
+import { User } from '../resources/users/entities/user.entity';
+import { Task } from '../resources/tasks/entities/task.entity';
+import { Board } from '../resources/boards/entities/board.entity';
 import { CreateTables1624013666751 } from './migrations/createTables';
 import { InsertAdmin1624196113786 } from './migrations/insertAdmin';
 
