@@ -1,28 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import * as usersRepo from './user.memory.repository';
+import { User } from './entities/user.entity';
+import { Task } from '../tasks/entities/task.entity';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectRepository(User) private readonly usersRepo: Repository<User>,
+    @InjectRepository(Task) private readonly tasksRepo: Repository<Task>,
+  ) {}
+
   create(createUserDto: CreateUserDto) {
-    return usersRepo.create(createUserDto);
+    const newUser = this.usersRepo.create(createUserDto);
+
+    return this.usersRepo.save(newUser);
   }
 
   findAll() {
-    return usersRepo.readAll();
+    return this.usersRepo.find();
   }
 
   findOne(id: string) {
-    return usersRepo.readById(id);
+    return this.usersRepo.findOne(id);
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
-    return usersRepo.updateById(id, updateUserDto);
+    return this.usersRepo.update(id, updateUserDto);
   }
 
-  remove(id: string) {
-    return usersRepo.deleteById(id);
+  async remove(id: string) {
+    const userToRemove = await this.findOne(id);
+
+    if (!userToRemove) {
+      return {
+        message: 'No such user',
+      };
+    }
+
+    await this.tasksRepo.update({ userId: id }, { userId: undefined });
+    return this.usersRepo.remove(userToRemove);
   }
 }

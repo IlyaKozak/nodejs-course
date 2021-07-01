@@ -1,6 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  BeforeInsert,
+} from 'typeorm';
+import { hash } from 'bcryptjs';
+import { Exclude } from 'class-transformer';
 
-import { TABLE } from '../../common/constants';
+import { DEFAULT_SALT_LENGTH, TABLE } from '../../common/constants';
 
 @Entity(TABLE.USERS)
 export class User extends BaseEntity {
@@ -15,6 +23,12 @@ export class User extends BaseEntity {
   })
   login!: string;
 
-  @Column()
+  @Exclude()
+  @Column({ select: false })
   password!: string;
+
+  @BeforeInsert()
+  async hashPassword(): Promise<void> {
+    this.password = await hash(this.password, DEFAULT_SALT_LENGTH);
+  }
 }

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import ormconfig from './db/ormconfig';
+import ormconfig from './database/ormconfig';
 import { HomeModule } from './home/home.module';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';

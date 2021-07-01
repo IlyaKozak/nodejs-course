@@ -18,6 +18,8 @@ export class CreateTables1624013666751 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            isUnique: true,
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'name',
@@ -49,6 +51,8 @@ export class CreateTables1624013666751 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            isUnique: true,
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'title',
@@ -68,8 +72,9 @@ export class CreateTables1624013666751 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
-            isGenerated: true,
             generationStrategy: 'uuid',
+            isUnique: true,
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'title',
@@ -109,6 +114,8 @@ export class CreateTables1624013666751 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            isUnique: true,
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'title',

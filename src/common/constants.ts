@@ -7,6 +7,8 @@ enum TABLE {
 
 const DEFAULT_PORT = 4000;
 
+const DEFAULT_SALT_LENGTH = 10;
+
 const UNAUTHORIZED_PATHS = [
   '',
   '/doc',
@@ -22,4 +24,4 @@ const UNAUTHORIZED_PATHS = [
   '/login',
 ];
 
-export { TABLE, DEFAULT_PORT, UNAUTHORIZED_PATHS };
+export { TABLE, DEFAULT_PORT, DEFAULT_SALT_LENGTH, UNAUTHORIZED_PATHS };
