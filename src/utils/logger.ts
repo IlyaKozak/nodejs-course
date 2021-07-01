@@ -11,8 +11,8 @@ const pathToErrorLogFile = path.join(
   'error.log',
 );
 
-const logger = {
-  error: async (errorInfo: string, shouldExit = false): Promise<void> => {
+class Logger {
+  static async error(errorInfo: string, shouldExit = false): Promise<void> {
     console.error(`ERROR: ${errorInfo}`);
     writeFile(
       pathToErrorLogFile,
@@ -29,8 +29,9 @@ const logger = {
         }
       },
     );
-  },
-  info: async (requestInfo: string): Promise<void> => {
+  }
+
+  static async info(requestInfo: string): Promise<void> {
     console.log(`INFO: ${requestInfo}`);
     writeFile(
       pathToInfoLogFile,
@@ -44,7 +45,7 @@ const logger = {
         }
       },
     );
-  },
-};
+  }
+}
 
-export default logger;
+export default Logger;

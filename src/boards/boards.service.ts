@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -24,8 +24,13 @@ export class BoardsService {
     return this.boardsRepo.find();
   }
 
-  findOne(id: string) {
-    return this.boardsRepo.findOneOrFail(id);
+  async findOne(id: string) {
+    try {
+      const board = await this.boardsRepo.findOneOrFail(id);
+      return board;
+    } catch {
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    }
   }
 
   async update(id: string, updateBoardDto: UpdateBoardDto) {
