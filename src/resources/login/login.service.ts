@@ -29,7 +29,9 @@ export class LoginService {
       }
 
       const jwtSecret = this.configService.get('JWT_SECRET_KEY');
-      const token = jwt.sign({ userId: user.id, login }, jwtSecret);
+      const token = jwt.sign({ userId: user.id, login }, jwtSecret, {
+        expiresIn: '24h',
+      });
 
       return { token };
     } catch {

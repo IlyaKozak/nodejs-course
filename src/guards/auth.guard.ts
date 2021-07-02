@@ -18,23 +18,29 @@ export class AuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
-    const path = request.path.replace(/\/$/, '');
+    try {
+      const request = context.switchToHttp().getRequest();
+      const path = request.url.replace(/\/$/, '');
 
-    if (UNAUTHORIZED_PATHS.includes(path)) {
-      return true;
-    }
+      if (UNAUTHORIZED_PATHS.includes(path)) {
+        return true;
+      }
 
-    const authHeader = request.header('Authorization');
+      const authHeader = request.headers.authorization;
+      let token;
+      if (authHeader && /^Bearer .*$/.test(authHeader)) {
+        [, token] = authHeader.split(' ');
+      }
 
-    let token;
-    if (authHeader && /^Bearer .*$/.test(authHeader)) {
-      [, token] = authHeader.split(' ');
-    }
-
-    const jwtSecret = process.env['JWT_SECRET_KEY'];
-    if (token && jwt.verify(token, jwtSecret!)) {
-      return true;
+      const jwtSecret = process.env['JWT_SECRET_KEY'];
+      if (token && jwt.verify(token, String(jwtSecret))) {
+        return true;
+      }
+    } catch {
+      throw new HttpException(
+        'Internal Server Error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
 
     throw new HttpException('Unautorized', HttpStatus.UNAUTHORIZED);

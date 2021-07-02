@@ -6,9 +6,16 @@ import {
   HttpStatus,
   BadRequestException,
 } from '@nestjs/common';
+import {
+  APP_PLATFORM_DEFAULT,
+  APP_PLATFORM_FASTIFY,
+} from 'src/common/constants';
+import { Logger } from 'src/logger/logger.service';
 
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
+  constructor(private logger: Logger) {}
+
   catch(
     exception: BadRequestException | HttpException | unknown,
     host: ArgumentsHost,
@@ -27,11 +34,24 @@ export class AllExceptionFilter implements ExceptionFilter {
       validationResponse = exception.getResponse();
     }
 
-    response.status(status).json({
+    const apiResponse = {
       ...validationResponse,
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-    });
+    };
+
+    this.logger.error(JSON.stringify(exception));
+
+    const platform = process.env['USE_FASTIFY'];
+    switch (platform) {
+      case APP_PLATFORM_FASTIFY:
+        response.code(status).send(apiResponse);
+        break;
+      case APP_PLATFORM_DEFAULT:
+      default:
+        response.status(status).json(apiResponse);
+        break;
+    }
   }
 }
