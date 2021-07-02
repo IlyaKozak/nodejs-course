@@ -21,7 +21,6 @@ services:
     ports: 
       - ${PORT}:${PORT}
     volumes:
-      - ./logs:/app/logs
       - ./src:/app/src
 
 networks: 

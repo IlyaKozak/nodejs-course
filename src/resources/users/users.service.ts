@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -24,13 +24,8 @@ export class UsersService {
     return this.usersRepo.find();
   }
 
-  async findOne(id: string) {
-    try {
-      const user = await this.usersRepo.findOneOrFail(id);
-      return user;
-    } catch {
-      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
-    }
+  findOne(id: string) {
+    return this.usersRepo.findOne(id);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -39,6 +34,7 @@ export class UsersService {
 
   async remove(id: string) {
     await this.tasksRepo.update({ userId: id }, { userId: undefined });
+
     return this.usersRepo.delete(id);
   }
 }

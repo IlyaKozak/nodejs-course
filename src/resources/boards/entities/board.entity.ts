@@ -1,6 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Column as ColumnModel } from '../models/column.model';
+import { Column as ColumnEntity } from './column.entity';
 
 @Entity({ name: 'boards' })
 export class Board {
@@ -10,6 +10,9 @@ export class Board {
   @Column()
   title!: string;
 
-  @Column({ type: 'json', array: false })
-  columns!: Array<ColumnModel>;
+  @OneToMany(() => ColumnEntity, (column) => column.board, {
+    cascade: true,
+    eager: true,
+  })
+  columns!: ColumnEntity[];
 }

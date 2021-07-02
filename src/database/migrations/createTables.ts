@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 import { TABLE } from '../../common/constants';
 
@@ -52,11 +57,6 @@ export class CreateTables1624013666751 implements MigrationInterface {
           {
             name: 'title',
             type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'columns',
-            type: 'json',
             isNullable: false,
           },
         ],
@@ -114,10 +114,52 @@ export class CreateTables1624013666751 implements MigrationInterface {
       }),
       true,
     );
+
+    await queryRunner.createTable(
+      new Table({
+        name: TABLE.COLUMNS,
+        columns: [
+          {
+            name: 'id',
+            type: 'uuid',
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'uuid',
+          },
+          {
+            name: 'title',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'order',
+            type: 'int',
+          },
+          {
+            name: 'boardId',
+            type: 'uuid',
+          },
+        ],
+      }),
+      true,
+    );
+
+    await queryRunner.createForeignKey(
+      TABLE.COLUMNS,
+      new TableForeignKey({
+        columnNames: ['boardId'],
+        referencedColumnNames: ['id'],
+        referencedTableName: TABLE.BOARDS,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable(TABLE.TASKS);
+
+    await queryRunner.dropTable(TABLE.COLUMNS);
 
     await queryRunner.dropTable(TABLE.BOARDS);
 

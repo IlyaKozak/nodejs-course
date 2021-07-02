@@ -1,15 +1,8 @@
 import { writeFile } from 'fs';
 import path from 'path';
 
-const pathToInfoLogFile = path.join(__dirname, '..', '..', 'logs', 'info.log');
-
-const pathToErrorLogFile = path.join(
-  __dirname,
-  '..',
-  '..',
-  'logs',
-  'error.log',
-);
+const pathToInfoLogFile = path.join(__dirname, 'logs', 'info.log');
+const pathToErrorLogFile = path.join(__dirname, 'logs', 'error.log');
 
 class Logger {
   static async error(errorInfo: string, shouldExit = false): Promise<void> {

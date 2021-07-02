@@ -1,4 +1,4 @@
-import logger from './logger';
+import logger from '../logger/logger';
 
 process.on('uncaughtException', async (error: Error) => {
   const timeStamp = new Date().toLocaleDateString('en-GB', {

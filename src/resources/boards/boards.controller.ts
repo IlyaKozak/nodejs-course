@@ -6,6 +6,8 @@ import {
   Put,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -26,8 +28,14 @@ export class BoardsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boardsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const board = await this.boardsService.findOne(id);
+
+    if (!board) {
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    return board;
   }
 
   @Put(':id')

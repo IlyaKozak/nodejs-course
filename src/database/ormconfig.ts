@@ -3,6 +3,7 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 import { User } from '../resources/users/entities/user.entity';
 import { Task } from '../resources/tasks/entities/task.entity';
 import { Board } from '../resources/boards/entities/board.entity';
+import { Column } from 'src/resources/boards/entities/column.entity';
 import { CreateTables1624013666751 } from './migrations/createTables';
 import { InsertAdmin1624196113786 } from './migrations/insertAdmin';
 
@@ -18,7 +19,7 @@ export const ormconfig: PostgresConnectionOptions = {
   database: 'postgres',
   synchronize: false,
   logging: false,
-  entities: [User, Board, Task],
+  entities: [User, Board, Task, Column],
   migrations: [CreateTables1624013666751, InsertAdmin1624196113786],
   migrationsRun: true,
 };

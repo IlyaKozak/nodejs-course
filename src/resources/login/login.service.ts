@@ -31,9 +31,7 @@ export class LoginService {
       const jwtSecret = this.configService.get('JWT_SECRET_KEY');
       const token = jwt.sign({ userId: user.id, login }, jwtSecret);
 
-      return {
-        token,
-      };
+      return { token };
     } catch {
       throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
     }

@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -24,27 +24,32 @@ export class BoardsService {
     return this.boardsRepo.find();
   }
 
-  async findOne(id: string) {
-    try {
-      const board = await this.boardsRepo.findOneOrFail(id);
-      return board;
-    } catch {
-      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
-    }
+  findOne(id: string) {
+    return this.boardsRepo.findOne(id);
   }
 
   async update(id: string, updateBoardDto: UpdateBoardDto) {
     const boardToUpdate = await this.findOne(id);
 
+    if (!boardToUpdate) {
+      return;
+    }
+
     if (updateBoardDto.title) {
       boardToUpdate.title = updateBoardDto.title;
     }
+
+    // TODO: update columns if needed
 
     return this.boardsRepo.save(boardToUpdate);
   }
 
   async remove(id: string) {
     const boardToRemove = await this.findOne(id);
+
+    if (!boardToRemove) {
+      return;
+    }
 
     await this.tasksRepo.delete({ boardId: id });
 

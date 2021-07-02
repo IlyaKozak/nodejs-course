@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-import { Column } from '../models/column.model';
+import { Column } from '../entities/column.entity';
 
 export class CreateBoardDto {
   @IsOptional()

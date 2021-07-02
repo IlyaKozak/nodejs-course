@@ -1,4 +1,3 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -22,13 +21,8 @@ export class TasksService {
     return this.tasksRepo.find();
   }
 
-  async findOne(id: string) {
-    try {
-      const task = await this.tasksRepo.findOneOrFail(id);
-      return task;
-    } catch {
-      throw new HttpException('Task Not Found', HttpStatus.NOT_FOUND);
-    }
+  findOne(id: string) {
+    return this.tasksRepo.findOne(id);
   }
 
   update(id: string, updateTaskDto: UpdateTaskDto) {

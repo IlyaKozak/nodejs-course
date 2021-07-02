@@ -8,6 +8,8 @@ import {
   Delete,
   UseInterceptors,
   ClassSerializerInterceptor,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -30,8 +32,14 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const user = await this.usersService.findOne(id);
+
+    if (!user) {
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    return user;
   }
 
   @Put(':id')

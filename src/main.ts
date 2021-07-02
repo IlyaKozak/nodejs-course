@@ -8,7 +8,7 @@ import {
 import { SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
-import './utils/uncaughtErrorsHandling';
+import './common/uncaughtErrorsHandling';
 import { AppModule } from './app.module';
 import {
   APP_PLATFORM_DEFAULT,
@@ -44,9 +44,7 @@ async function bootstrap() {
 
   const configService: ConfigService = app.get(ConfigService);
 
-  const swaggerDocument = yaml.load(
-    join(__dirname, '..', '..', 'doc', 'api.yaml'),
-  );
+  const swaggerDocument = yaml.load(join(__dirname, '..', 'doc', 'api.yaml'));
   SwaggerModule.setup('doc', app, swaggerDocument);
 
   app.useGlobalFilters(new AllExceptionFilter());
