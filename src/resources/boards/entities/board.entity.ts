@@ -1,5 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+import { Column as ColumnModel } from '../models/column.model';
+
 @Entity({ name: 'boards' })
 export class Board {
   @PrimaryGeneratedColumn('uuid')
@@ -9,5 +11,5 @@ export class Board {
   title!: string;
 
   @Column({ type: 'json', array: false })
-  columns!: Array<{ title: string; order: number }>;
+  columns!: Array<ColumnModel>;
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { CreateLoginDto } from './dto/create-login.dto';
 
@@ -7,6 +7,7 @@ export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @Post()
+  @HttpCode(200)
   create(@Body() createLoginDto: CreateLoginDto) {
     return this.loginService.create(createLoginDto);
   }

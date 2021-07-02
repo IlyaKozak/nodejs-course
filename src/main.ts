@@ -6,6 +6,7 @@ import {
   FastifyAdapter,
 } from '@nestjs/platform-fastify';
 import { SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 import './utils/uncaughtErrorsHandling';
 import { AppModule } from './app.module';
@@ -50,6 +51,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionFilter());
   app.useGlobalGuards(new AuthGuard());
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(configService.get('PORT') || PORT_DEFAULT);
 }
