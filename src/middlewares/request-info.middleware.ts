@@ -9,7 +9,7 @@ export class RequestInfoMiddleware implements NestMiddleware {
   constructor(private logger: Logger) {}
 
   use(req: Request, res: Response, next: NextFunction) {
-    const { method, url, body, query } = req;
+    const { method, url, body } = req;
     const start = Date.now();
 
     next();
@@ -19,8 +19,7 @@ export class RequestInfoMiddleware implements NestMiddleware {
 
       const { statusCode } = res;
       this.logger.log(
-        `${method} ${url} ${statusCode} ${ms}ms ` +
-          `${JSON.stringify(body || {})} ${JSON.stringify(query)}`,
+        `${method} ${url} ${statusCode} ${ms}ms ${JSON.stringify(body || {})}`,
       );
     });
   }

@@ -1,4 +1,5 @@
 import { Injectable, LoggerService } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { writeFile } from 'fs';
 import { join } from 'path';
 
@@ -7,15 +8,23 @@ const pathToErrorLogFile = join(__dirname, '..', '..', 'logs', 'error.log');
 
 @Injectable()
 export class Logger implements LoggerService {
+  constructor(private configService: ConfigService) {}
+
   async log(message: string) {
     const logMessage = `[${new Date().toISOString()}] INFO: ${message}\n`;
-    await this.writeToFile(logMessage, pathToInfoLogFile);
+
+    if (this.configService.get('WRITE_LOGS_TO_FILE') === 'true') {
+      await this.writeToFile(logMessage, pathToInfoLogFile);
+    }
     console.log(logMessage);
   }
 
   async error(message: string) {
     const errorMessage = `[${new Date().toISOString()}] ERROR: ${message}\n`;
-    await this.writeToFile(errorMessage, pathToErrorLogFile);
+
+    if (this.configService.get('WRITE_LOGS_TO_FILE') === 'true') {
+      await this.writeToFile(errorMessage, pathToErrorLogFile);
+    }
     console.error(errorMessage);
   }
 

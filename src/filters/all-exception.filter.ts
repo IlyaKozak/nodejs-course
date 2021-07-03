@@ -16,10 +16,7 @@ import { Logger } from 'src/logger/logger.service';
 export class AllExceptionFilter implements ExceptionFilter {
   constructor(private logger: Logger) {}
 
-  catch(
-    exception: BadRequestException | HttpException | unknown,
-    host: ArgumentsHost,
-  ) {
+  catch(exception: BadRequestException | HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
@@ -46,11 +43,11 @@ export class AllExceptionFilter implements ExceptionFilter {
     const platform = process.env['USE_FASTIFY'];
     switch (platform) {
       case APP_PLATFORM_FASTIFY:
-        response.code(status).send(apiResponse);
+        response?.code(status)?.send(apiResponse);
         break;
       case APP_PLATFORM_DEFAULT:
       default:
-        response.status(status).json(apiResponse);
+        response?.status(status)?.json(apiResponse);
         break;
     }
   }
