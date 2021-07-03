@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import bcrypt from 'bcryptjs';
 
 interface IUser {
   id: string;
@@ -31,7 +32,7 @@ class User implements IUser {
     this.id = id;
     this.name = name;
     this.login = login;
-    this.password = password;
+    this.password = bcrypt.hashSync(password);
   }
 
   static toResponse(user: IUser): IUserResponse {

@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-import { User, IUser } from './user.model';
+import { User } from './user.model';
 import * as usersService from './user.service';
 import ValidationError from '../../utils/validationError';
 import HTTPError from '../../utils/HTTPError';
@@ -53,10 +53,13 @@ router.route('/:id').put(async (req: Request, res: Response, next: NextFunction)
       throw new ValidationError();
     }
 
-    const userUpdate: IUser = {
-      ...new User(req.body),
+    const user = await usersService.readById(id);
+
+    const userUpdate: User = new User({
+      ...user,
+      ...req.body,
       id,
-    };
+    });
     const result = await usersService.updateById(id, userUpdate);
 
     if (!result.affected) {

@@ -30,14 +30,15 @@ router.route('/:id').get(async (req: Request, res: Response, next: NextFunction)
       throw new HTTPError(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND);
     }
 
-    if (board.columns) {
-      board.columns.sort((columnA, columnB) => {
-        if (columnA.order && columnB.order) {
-          return columnA.order - columnB.order;
-        }
-        return 0;
-      });
-    }
+    // sort columns by order
+    // if (board.columns) {
+    //   board.columns.sort((columnA, columnB) => {
+    //     if (columnA.order && columnB.order) {
+    //       return columnA.order - columnB.order;
+    //     }
+    //     return 0;
+    //   });
+    // }
 
     res.json(board);
   } catch (error) {
