@@ -22,6 +22,9 @@ services:
       - ${PORT}:${PORT}
     volumes:
       - ./src:/app/src
+      - ./logs:/app/logs
+      - ./artillery.io:/app/artillery.io
+      - ./.env:/app/.env
 
 networks: 
   rest-api-net:
