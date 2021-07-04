@@ -15,6 +15,7 @@ import {
   APP_PLATFORM_DEFAULT,
   APP_PLATFORM_FASTIFY,
   PORT_DEFAULT,
+  HOSTNAME_DEFAULT,
 } from './common/constants';
 import { AllExceptionFilter } from './filters/all-exception.filter';
 import { AuthGuard } from './guards/auth.guard';
@@ -60,7 +61,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionFilter(logger));
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(configService.get('PORT') || PORT_DEFAULT);
+  await app.listen(configService.get('PORT') || PORT_DEFAULT, HOSTNAME_DEFAULT);
 }
 
 bootstrap();
