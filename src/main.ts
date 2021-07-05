@@ -20,6 +20,7 @@ import {
 import { AllExceptionFilter } from './filters/all-exception.filter';
 import { AuthGuard } from './guards/auth.guard';
 import { Logger } from './logger/logger.service';
+import { RequestLoggerInterceptor } from './interceptors/request-logger.interceptor';
 
 async function bootstrap() {
   const platform = process.env['USE_FASTIFY'];
@@ -60,6 +61,7 @@ async function bootstrap() {
   app.useGlobalGuards(new AuthGuard());
   app.useGlobalFilters(new AllExceptionFilter(logger));
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new RequestLoggerInterceptor(logger));
 
   await app.listen(configService.get('PORT') || PORT_DEFAULT, HOSTNAME_DEFAULT);
 }

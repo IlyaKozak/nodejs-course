@@ -20,6 +20,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
+    const { method, url, body, query } = request;
 
     const status =
       exception instanceof HttpException
@@ -38,6 +39,10 @@ export class AllExceptionFilter implements ExceptionFilter {
       path: request.url,
     };
 
+    this.logger.log(
+      `${method} ${url} ${status} Body: ${JSON.stringify(body || {})}` +
+        ` Query: ${JSON.stringify(query || {})}`,
+    );
     this.logger.error(JSON.stringify(exception));
 
     const platform = process.env['USE_FASTIFY'];
